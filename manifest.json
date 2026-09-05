@@ -1,0 +1,26 @@
+{
+  "name": "小小服装设计师",
+  "short_name": "服装设计",
+  "description": "给圆润卡通小动物搭配衣服、学习颜色、季节与汉字的启蒙小游戏",
+  "start_url": "/index.html",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FFF6E5",
+  "theme_color": "#FFE9A8",
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

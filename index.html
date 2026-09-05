@@ -1,0 +1,2199 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="Rd8rHwl9xpOc6U9hOwL1Cp">
+<head data-page-node-id="whaoOsl8CQJeG3gAzBz2GP">
+<meta charset="utf-8" data-page-node-id="ZHv40rioBcjBAfc7F4LX6r">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" data-page-node-id="AawiIHty5dtE0Kf41A7bTc">
+<meta name="theme-color" content="#FFE9A8" data-page-node-id="hk9aLZ3nzlIF9NleFzV9Po">
+<meta name="apple-mobile-web-app-capable" content="yes" data-page-node-id="cnrLDi6wY5wSwa6WP5HVhI">
+<meta name="mobile-web-app-capable" content="yes" data-page-node-id="XfdDa96z5mY0qmlBA91aRa">
+<meta name="apple-mobile-web-app-title" content="小小服装设计师" data-page-node-id="YXtxXGz3CBbguSTcRCnOoL">
+<meta name="apple-mobile-web-app-status-bar-style" content="default" data-page-node-id="HE2ebkjXXxfxIJu59vipYB">
+<link rel="manifest" href="manifest.json" data-page-node-id="gDXhr5JPPIDSgKaMVWJz4d">
+<link rel="icon" type="image/svg+xml" href="favicon.svg" data-page-node-id="oB5UFQMz4bTjynbhxCksaC">
+<link rel="apple-touch-icon" href="icon-192.png" data-page-node-id="TBAASvd49OBfGl4csD04KD">
+<title>小小服装设计师</title>
+<style>
+/* ===== 小小服装设计师 ===== */
+:root {
+  --bg: #FFF6E5;
+  --card: #FFFFFF;
+  --ink: #4A3F35;
+  --ink2: #8B7B68;
+  --accent: #FF9F40;
+  --accent-d: #F28A1E;
+  --yellow: #FFD166;
+  --ok: #5CD65C;
+  --pink: #FF8EC7;
+  --blue: #4DABF7;
+  --line: #EFE3CE;
+  --shadow: 0 4px 0 rgba(0, 0, 0, .08);
+  --r: 22px;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  margin: 0; padding: 0; height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "Source Han Sans SC", sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#app { height: 100dvh; height: 100vh; display: flex; flex-direction: column; }
+
+/* ---------- 通用 ---------- */
+.screen { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+.pad { padding: 12px 16px; }
+.center { display: flex; align-items: center; justify-content: center; }
+
+.btn {
+  border: none; border-radius: var(--r);
+  background: var(--card); color: var(--ink);
+  font-size: 19px; font-weight: 700; font-family: inherit;
+  padding: 16px 20px; min-height: 72px;
+  box-shadow: var(--shadow); cursor: pointer;
+  transition: transform .12s, box-shadow .12s;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+.btn:active { transform: translateY(3px); box-shadow: 0 1px 0 rgba(0,0,0,.08); }
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-yellow { background: var(--yellow); color: #6B4A2F; }
+.btn-ok { background: var(--ok); color: #fff; }
+.btn-ghost { background: rgba(255,255,255,.72); }
+.btn-sm { min-height: 56px; font-size: 16px; padding: 12px 16px; border-radius: 16px; }
+.btn[disabled] { opacity: .45; }
+
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: calc(env(safe-area-inset-top) + 10px) 16px 10px;
+  gap: 10px;
+}
+.topbar h1 { margin: 0; font-size: 20px; font-weight: 800; }
+.pill {
+  background: rgba(255,255,255,.85); border-radius: 999px;
+  padding: 8px 14px; font-size: 15px; font-weight: 700;
+  display: flex; align-items: center; gap: 6px; box-shadow: var(--shadow);
+}
+.pill.star { color: #E8A317; }
+
+/* ---------- 首页 ---------- */
+.home { gap: 14px; align-items: center; justify-content: center; padding: 20px; }
+.home-title { font-size: 34px; font-weight: 900; text-align: center; line-height: 1.15; margin: 0; }
+.home-sub { font-size: 16px; color: var(--ink2); text-align: center; margin: 0; }
+.home-mascot { width: min(52vw, 240px); animation: float 3s ease-in-out infinite; }
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+.home-btns { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 320px; }
+
+/* ---------- 选角色 ---------- */
+.grid2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.card {
+  background: var(--card); border-radius: var(--r); padding: 12px;
+  box-shadow: var(--shadow); text-align: center; cursor: pointer;
+  border: 4px solid transparent; transition: transform .12s;
+}
+.card:active { transform: scale(.97); }
+.card.sel { border-color: var(--accent); }
+.card.locked { opacity: .5; }
+.card-avatar { width: 100%; height: 92px; }
+.card-name { font-size: 17px; font-weight: 800; margin-top: 2px; }
+.card-sub { font-size: 12px; color: var(--ink2); }
+
+/* ---------- 任务列表 ---------- */
+.task-list { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 4px 16px 16px; }
+.task {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--card); border-radius: 18px; padding: 14px; margin-bottom: 10px;
+  box-shadow: var(--shadow); cursor: pointer; min-height: 84px;
+}
+.task:active { transform: scale(.99); }
+.task-no {
+  width: 52px; height: 52px; border-radius: 16px; flex: none;
+  background: var(--yellow); color: #6B4A2F;
+  font-size: 22px; font-weight: 900; display: flex; align-items: center; justify-content: center;
+}
+.task.done .task-no { background: var(--ok); color: #fff; }
+.task-body { flex: 1; min-width: 0; }
+.task-title { font-size: 17px; font-weight: 800; }
+.task-hint { font-size: 13px; color: var(--ink2); margin-top: 2px; }
+.task-tag { font-size: 11px; background: var(--bg); border-radius: 999px; padding: 3px 9px; color: var(--ink2); display: inline-block; margin-top: 5px; }
+
+/* ---------- 舞台 ---------- */
+.stage {
+  flex: none; position: relative; margin: 0 12px;
+  border-radius: 26px; overflow: hidden; background: #fff;
+  box-shadow: var(--shadow); height: 40vh; min-height: 240px;
+}
+.stage svg { width: 100%; height: 100%; display: block; }
+.stage-word {
+  position: absolute; top: 10px; right: 10px;
+  background: rgba(255,255,255,.94); border-radius: 16px;
+  padding: 8px 12px; text-align: center; box-shadow: var(--shadow);
+  animation: pop .28s cubic-bezier(.2,1.4,.5,1);
+}
+@keyframes pop { 0%{transform:scale(.5);opacity:0} 100%{transform:scale(1);opacity:1} }
+.sw-char { font-size: 30px; font-weight: 900; line-height: 1; }
+.sw-py { font-size: 12px; color: var(--ink2); font-weight: 700; }
+
+.tip {
+  margin: 10px 16px 0; background: #fff; border-radius: 16px;
+  padding: 11px 14px; font-size: 15px; font-weight: 700; text-align: center;
+  box-shadow: var(--shadow);
+}
+
+/* ---------- 底部托盘 ---------- */
+.tray { flex: 1; display: flex; flex-direction: column; min-height: 0; padding: 10px 12px calc(env(safe-area-inset-bottom) + 10px); }
+.slots { display: flex; gap: 8px; margin-bottom: 8px; }
+.slot {
+  flex: 1; min-height: 60px; border-radius: 14px; border: none;
+  background: rgba(255,255,255,.7); font-family: inherit;
+  font-size: 13px; font-weight: 800; color: var(--ink2);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  cursor: pointer; padding: 6px 2px;
+}
+.slot.on { background: var(--accent); color: #fff; }
+.slot .dot { width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(0,0,0,.15); }
+
+.items { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.item-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; padding-bottom: 8px; }
+.item {
+  background: #fff; border-radius: 16px; padding: 8px 4px; text-align: center;
+  box-shadow: var(--shadow); cursor: pointer; border: 3px solid transparent;
+  min-height: 84px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.item:active { transform: scale(.95); }
+.item.on { border-color: var(--accent); }
+.item-ic { width: 42px; height: 42px; color: var(--ink); }
+.item-nm { font-size: 11px; font-weight: 700; margin-top: 2px; }
+.item-w { font-size: 10px; color: var(--ink2); }
+
+.palette { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; padding-top: 4px; }
+.sw {
+  width: 44px; height: 44px; border-radius: 50%; border: 3px solid #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,.18); cursor: pointer;
+}
+.sw.on { border-color: var(--ink); transform: scale(1.12); }
+
+/* ---------- 通用题面 ---------- */
+.quiz { flex: 1; display: flex; flex-direction: column; padding: 14px 16px calc(env(safe-area-inset-bottom) + 14px); gap: 12px; }
+.q-prompt { font-size: 20px; font-weight: 900; text-align: center; }
+.q-big { font-size: 76px; font-weight: 900; text-align: center; line-height: 1; margin: 4px 0; }
+.q-opts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.q-opt {
+  background: #fff; border-radius: 20px; min-height: 108px; border: 4px solid transparent;
+  box-shadow: var(--shadow); cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+}
+.q-opt:active { transform: scale(.96); }
+.q-opt.on { border-color: var(--ok); }
+.q-opt.bad { animation: shake .4s; }
+@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
+.q-ic { width: 56px; height: 56px; color: var(--ink); }
+.q-lb { font-size: 15px; font-weight: 800; }
+.q-seq { display: flex; gap: 10px; justify-content: center; align-items: center; }
+.seq-d { width: 46px; height: 46px; border-radius: 50%; border: 3px solid rgba(0,0,0,.12); }
+.seq-q { font-size: 34px; font-weight: 900; color: var(--ink2); }
+.count-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; min-height: 60px; align-items: center; }
+.count-n { font-size: 40px; font-weight: 900; text-align: center; }
+.tap-big {
+  width: 120px; height: 120px; border-radius: 50%; border: none;
+  background: var(--yellow); box-shadow: var(--shadow); cursor: pointer;
+  display: flex; align-items: center; justify-content: center; margin: 0 auto;
+  animation: breathe 1.8s ease-in-out infinite;
+}
+.tap-big:active { transform: scale(.94); }
+@keyframes breathe { 0%,100%{transform:scale(1)} 50%{transform:scale(1.06)} }
+.sent { display: flex; gap: 8px; justify-content: center; align-items: center; flex-wrap: wrap; }
+.sent-c {
+  width: 62px; height: 62px; border-radius: 14px; background: #fff; box-shadow: var(--shadow);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 30px; font-weight: 900;
+}
+.sent-c.blank { border: 3px dashed var(--accent); color: var(--accent); }
+
+/* ---------- 印章 / 反馈 ---------- */
+.overlay {
+  position: fixed; inset: 0; background: rgba(74,63,53,.55);
+  display: flex; align-items: center; justify-content: center; padding: 24px; z-index: 50;
+}
+.modal {
+  background: #fff; border-radius: 28px; padding: 24px; width: 100%; max-width: 340px;
+  text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,.25);
+  animation: pop .3s cubic-bezier(.2,1.4,.5,1);
+}
+.modal h2 { margin: 0 0 6px; font-size: 23px; font-weight: 900; }
+.modal p { margin: 0 0 14px; font-size: 15px; color: var(--ink2); }
+.stamp {
+  width: 132px; height: 132px; margin: 6px auto 12px; border-radius: 26px;
+  border: 6px solid var(--pink); color: var(--pink);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  transform: rotate(-8deg); animation: stampIn .45s cubic-bezier(.2,1.6,.4,1);
+}
+@keyframes stampIn { 0%{transform:rotate(-30deg) scale(2.2);opacity:0} 60%{opacity:1} 100%{transform:rotate(-8deg) scale(1);opacity:1} }
+.stamp-c { font-size: 62px; font-weight: 900; line-height: 1; }
+.stamp-p { font-size: 15px; font-weight: 800; }
+.praise { background: var(--bg); border-radius: 16px; padding: 12px; font-size: 16px; font-weight: 700; margin-bottom: 12px; }
+
+/* ---------- 作品集 ---------- */
+.works { flex: 1; overflow-y: auto; padding: 4px 16px 16px; }
+.works-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.work { background: #fff; border-radius: 18px; overflow: hidden; box-shadow: var(--shadow); cursor: pointer; }
+.work svg { width: 100%; height: 150px; display: block; background: #fff; }
+.work-ft { padding: 8px; font-size: 12px; color: var(--ink2); text-align: center; font-weight: 700; }
+
+/* ---------- 集章册 ---------- */
+.books { flex: 1; overflow-y: auto; padding: 4px 16px 16px; }
+.book-lv { margin-bottom: 14px; }
+.book-hd { font-size: 15px; font-weight: 800; margin-bottom: 8px; display: flex; justify-content: space-between; }
+.book-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.chip {
+  aspect-ratio: 1; border-radius: 14px; background: #fff; box-shadow: var(--shadow);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  font-size: 21px; font-weight: 900;
+}
+.chip.locked { background: rgba(255,255,255,.5); color: #D8CDBA; }
+.chip small { font-size: 9px; font-weight: 700; color: var(--ink2); }
+.chip.got { color: var(--pink); }
+
+/* ---------- 家长中心 ---------- */
+.pc { flex: 1; overflow-y: auto; padding: 4px 16px calc(env(safe-area-inset-bottom) + 20px); }
+.row {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  background: #fff; border-radius: 16px; padding: 14px; margin-bottom: 10px; box-shadow: var(--shadow);
+  min-height: 64px;
+}
+.row-l { font-size: 16px; font-weight: 800; }
+.row-s { font-size: 12px; color: var(--ink2); font-weight: 600; margin-top: 2px; }
+.seg { display: flex; gap: 6px; flex-wrap: wrap; }
+.seg button {
+  border: none; background: var(--bg); color: var(--ink); font-family: inherit;
+  font-size: 15px; font-weight: 800; padding: 10px 14px; border-radius: 12px; min-height: 46px; cursor: pointer;
+}
+.seg button.on { background: var(--accent); color: #fff; }
+.warn { background: #FFF3E0; border-radius: 14px; padding: 12px; font-size: 13px; color: #8A5A20; margin-bottom: 10px; line-height: 1.5; }
+.hold {
+  position: fixed; right: 14px; bottom: calc(env(safe-area-inset-bottom) + 14px);
+  width: 58px; height: 58px; border-radius: 50%; border: none;
+  background: rgba(255,255,255,.8); font-size: 22px; cursor: pointer;
+  box-shadow: var(--shadow); z-index: 20;
+}
+.hold-prog {
+  position: fixed; right: 14px; bottom: calc(env(safe-area-inset-bottom) + 14px);
+  width: 58px; height: 58px; border-radius: 50%; pointer-events: none; z-index: 21;
+  background: conic-gradient(var(--accent) var(--p, 0deg), transparent 0);
+  -webkit-mask: radial-gradient(circle, transparent 60%, #000 61%);
+  mask: radial-gradient(circle, transparent 60%, #000 61%);
+}
+.sleep { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 24px; text-align: center; }
+.sleep-emo { font-size: 76px; animation: float 3s ease-in-out infinite; }
+
+.empty { text-align: center; color: var(--ink2); font-size: 15px; padding: 40px 20px; line-height: 1.7; }
+
+</style>
+</head>
+<body data-page-node-id="4YvTzbIquGKKZIA8NA5giX">
+<div id="app" data-page-node-id="iqSfxks8LroO5k7xNI5nPT"></div>
+<script>
+
+/* ===== words.js ===== */
+/**
+ * 字库：1000 字，分 10 级
+ *
+ * 设计原则：收录范围取自现代汉语常用字；教学顺序按「具象程度 + 幼儿口语熟悉度」
+ * 重排，而非按字频机械排序 —— 频序前 100 字里大量虚词（的、了、是、在…）
+ * 既配不出图、4 岁也理解不了，因此被下沉到 L9-L10。
+ *
+ * 紧凑格式：'字 拼音 词例'，条目间用 ' / ' 分隔
+ *   lv  级别 1-10（L1 最具体，L10 最抽象）
+ *   cat 语义分类
+ *   f   常用度 A=极常用 B=常用 C=次常用
+ */
+const RAW_WORDS = [
+  /* ========== L1 具象·身边（4-5岁）========== */
+  { lv: 1, cat: '穿戴', f: 'A', s: '衣 yī 衣服 / 帽 mào 帽子 / 鞋 xié 鞋子 / 袜 wà 袜子 / 裤 kù 裤子 / 裙 qún 裙子 / 衫 shān 衬衫 / 巾 jīn 围巾 / 带 dài 腰带 / 布 bù 花布' },
+  { lv: 1, cat: '颜色', f: 'A', s: '红 hóng 红色 / 黄 huáng 黄色 / 蓝 lán 蓝色 / 绿 lǜ 绿色 / 白 bái 白色 / 黑 hēi 黑色 / 粉 fěn 粉色 / 橙 chéng 橙色 / 紫 zǐ 紫色 / 灰 huī 灰色' },
+  { lv: 1, cat: '身体', f: 'A', s: '头 tóu 点头 / 手 shǒu 小手 / 脚 jiǎo 小脚 / 眼 yǎn 眼睛 / 耳 ěr 耳朵 / 口 kǒu 张口 / 鼻 bí 鼻子 / 牙 yá 牙齿 / 发 fà 头发 / 脸 liǎn 笑脸' },
+  { lv: 1, cat: '家人', f: 'A', s: '爸 bà 爸爸 / 妈 mā 妈妈 / 爷 yé 爷爷 / 奶 nǎi 奶奶 / 哥 gē 哥哥 / 姐 jiě 姐姐 / 弟 dì 弟弟 / 妹 mèi 妹妹 / 娃 wá 娃娃 / 宝 bǎo 宝宝' },
+  { lv: 1, cat: '动物', f: 'A', s: '熊 xióng 小熊 / 兔 tù 兔子 / 猫 māo 小猫 / 狗 gǒu 小狗 / 鸟 niǎo 小鸟 / 鱼 yú 小鱼 / 虫 chóng 虫子 / 马 mǎ 小马 / 牛 niú 奶牛 / 羊 yáng 小羊' },
+  { lv: 1, cat: '自然', f: 'A', s: '日 rì 生日 / 月 yuè 月亮 / 星 xīng 星星 / 云 yún 白云 / 雨 yǔ 下雨 / 雪 xuě 雪花 / 风 fēng 大风 / 水 shuǐ 喝水 / 火 huǒ 火车 / 山 shān 大山' },
+  { lv: 1, cat: '数词', f: 'A', s: '一 yī 一个 / 二 èr 二个 / 三 sān 三个 / 四 sì 四个 / 五 wǔ 五个 / 六 liù 六个 / 七 qī 七个 / 八 bā 八个 / 九 jiǔ 九个 / 十 shí 十个' },
+  { lv: 1, cat: '方位', f: 'A', s: '上 shàng 上面 / 下 xià 下面 / 左 zuǒ 左边 / 右 yòu 右边 / 中 zhōng 中间 / 里 lǐ 里面 / 外 wài 外面 / 前 qián 前面 / 后 hòu 后面 / 大 dà 大的' },
+  { lv: 1, cat: '家居', f: 'A', s: '家 jiā 回家 / 门 mén 大门 / 窗 chuāng 窗户 / 床 chuáng 小床 / 桌 zhuō 桌子 / 椅 yǐ 椅子 / 灯 dēng 台灯 / 车 chē 汽车 / 书 shū 看书 / 球 qiú 皮球' },
+  { lv: 1, cat: '饮食', f: 'A', s: '米 mǐ 米饭 / 饭 fàn 吃饭 / 蛋 dàn 鸡蛋 / 汁 zhī 果汁 / 糖 táng 糖果 / 果 guǒ 水果 / 汤 tāng 喝汤 / 菜 cài 青菜 / 肉 ròu 吃肉 / 茶 chá 喝茶' },
+
+  /* ========== L2 生活物品与食物（5岁）========== */
+  { lv: 2, cat: '餐具', f: 'B', s: '杯 bēi 水杯 / 碗 wǎn 饭碗 / 勺 sháo 勺子 / 盘 pán 盘子 / 瓶 píng 瓶子 / 盒 hé 盒子 / 篮 lán 篮子 / 袋 dài 口袋 / 锅 guō 铁锅 / 刀 dāo 小刀' },
+  { lv: 2, cat: '家具', f: 'B', s: '柜 guì 衣柜 / 箱 xiāng 箱子 / 架 jià 衣架 / 帘 lián 窗帘 / 被 bèi 被子 / 枕 zhěn 枕头 / 毯 tǎn 毛毯 / 钟 zhōng 时钟 / 镜 jìng 镜子 / 桶 tǒng 水桶' },
+  { lv: 2, cat: '文具', f: 'B', s: '笔 bǐ 铅笔 / 纸 zhǐ 白纸 / 本 běn 本子 / 画 huà 画画 / 剪 jiǎn 剪刀 / 尺 chǐ 尺子 / 胶 jiāo 胶水 / 涂 tú 涂色 / 折 zhé 折纸 / 贴 tiē 贴纸' },
+  { lv: 2, cat: '服饰', f: 'B', s: '扣 kòu 扣子 / 袖 xiù 袖子 / 领 lǐng 衣领 / 靴 xuē 雨靴 / 伞 sǎn 雨伞 / 表 biǎo 手表 / 链 liàn 项链 / 环 huán 耳环 / 扇 shàn 扇子 / 帕 pà 手帕' },
+  { lv: 2, cat: '交通', f: 'B', s: '船 chuán 小船 / 机 jī 飞机 / 路 lù 马路 / 桥 qiáo 小桥 / 航 háng 航空 / 票 piào 车票 / 轮 lún 车轮 / 街 jiē 大街 / 巷 xiàng 小巷 / 港 gǎng 港口' },
+  { lv: 2, cat: '场所', f: 'B', s: '园 yuán 公园 / 校 xiào 学校 / 店 diàn 商店 / 院 yuàn 院子 / 楼 lóu 大楼 / 场 chǎng 广场 / 市 shì 城市 / 村 cūn 村子 / 城 chéng 进城 / 馆 guǎn 图书馆' },
+  { lv: 2, cat: '植物', f: 'B', s: '草 cǎo 小草 / 叶 yè 树叶 / 树 shù 大树 / 枝 zhī 树枝 / 根 gēn 树根 / 苗 miáo 树苗 / 竹 zhú 竹子 / 松 sōng 松树 / 荷 hé 荷花 / 莲 lián 莲花' },
+  { lv: 2, cat: '身体2', f: 'B', s: '腿 tuǐ 小腿 / 臂 bì 手臂 / 指 zhǐ 手指 / 肚 dù 肚子 / 眉 méi 眉毛 / 舌 shé 舌头 / 掌 zhǎng 手掌 / 肩 jiān 肩膀 / 背 bèi 后背 / 腰 yāo 弯腰' },
+  { lv: 2, cat: '玩具', f: 'B', s: '珠 zhū 珠子 / 鼓 gǔ 小鼓 / 琴 qín 钢琴 / 棋 qí 下棋 / 牌 pái 纸牌 / 铃 líng 铃铛 / 偶 ǒu 木偶 / 圈 quān 圆圈 / 绳 shéng 跳绳 / 泡 pào 泡泡' },
+  { lv: 2, cat: '食物', f: 'B', s: '面 miàn 面条 / 包 bāo 包子 / 豆 dòu 豆子 / 油 yóu 香油 / 盐 yán 食盐 / 桃 táo 桃子 / 梨 lí 鸭梨 / 饼 bǐng 饼干 / 粥 zhōu 米粥 / 瓜 guā 西瓜' },
+
+  /* ========== L3 动作与状态（5-6岁）========== */
+  { lv: 3, cat: '动作A', f: 'A', s: '看 kàn 看见 / 听 tīng 听话 / 说 shuō 说话 / 走 zǒu 走路 / 跑 pǎo 跑步 / 跳 tiào 跳高 / 吃 chī 吃饭 / 喝 hē 喝水 / 睡 shuì 睡觉 / 洗 xǐ 洗手' },
+  { lv: 3, cat: '动作B', f: 'A', s: '穿 chuān 穿衣 / 戴 dài 戴帽 / 拿 ná 拿走 / 放 fàng 放下 / 开 kāi 开门 / 关 guān 关门 / 坐 zuò 坐下 / 站 zhàn 站立 / 起 qǐ 起来 / 立 lì 立正' },
+  { lv: 3, cat: '动作C', f: 'A', s: '笑 xiào 微笑 / 哭 kū 哭泣 / 唱 chàng 唱歌 / 玩 wán 玩耍 / 抱 bào 拥抱 / 拉 lā 拉手 / 推 tuī 推车 / 打 dǎ 打球 / 拍 pāi 拍手 / 摸 mō 摸摸' },
+  { lv: 3, cat: '动作D', f: 'A', s: '找 zhǎo 找到 / 送 sòng 送花 / 回 huí 回家 / 来 lái 过来 / 去 qù 出去 / 出 chū 出门 / 入 rù 进入 / 爬 pá 爬山 / 飞 fēi 起飞 / 游 yóu 游泳' },
+  { lv: 3, cat: '情绪', f: 'B', s: '喜 xǐ 欢喜 / 乐 lè 快乐 / 怕 pà 害怕 / 急 jí 着急 / 累 lèi 劳累 / 饿 è 肚子饿 / 渴 kě 口渴 / 疼 téng 疼痛 / 欢 huān 欢乐 / 甜 tián 甜甜' },
+  { lv: 3, cat: '状态', f: 'A', s: '好 hǎo 很好 / 坏 huài 坏掉 / 新 xīn 新的 / 旧 jiù 旧的 / 老 lǎo 老人 / 长 cháng 长的 / 短 duǎn 短的 / 多 duō 很多 / 轻 qīng 轻轻 / 重 zhòng 很重' },
+  { lv: 3, cat: '温度', f: 'B', s: '冷 lěng 天冷 / 热 rè 天热 / 暖 nuǎn 温暖 / 凉 liáng 凉快 / 干 gān 干净 / 湿 shī 潮湿 / 亮 liàng 明亮 / 暗 àn 黑暗 / 晴 qíng 晴天 / 阴 yīn 阴天' },
+  { lv: 3, cat: '时间', f: 'A', s: '早 zǎo 早上 / 晚 wǎn 晚上 / 午 wǔ 中午 / 夜 yè 夜晚 / 今 jīn 今天 / 明 míng 明天 / 昨 zuó 昨天 / 年 nián 新年 / 时 shí 时间 / 分 fēn 分钟' },
+  { lv: 3, cat: '季节', f: 'A', s: '春 chūn 春天 / 夏 xià 夏天 / 秋 qiū 秋天 / 冬 dōng 冬天 / 天 tiān 天空 / 气 qì 天气 / 雷 léi 打雷 / 电 diàn 闪电 / 冰 bīng 冰块 / 霜 shuāng 下霜' },
+  { lv: 3, cat: '社交', f: 'A', s: '你 nǐ 你好 / 我 wǒ 我的 / 他 tā 他的 / 她 tā 她的 / 问 wèn 问好 / 答 dá 回答 / 谢 xiè 谢谢 / 请 qǐng 请坐 / 帮 bāng 帮忙 / 给 gěi 给你' },
+
+  /* ========== L4 学习、地理与度量（6-7岁）========== */
+  { lv: 4, cat: '学习', f: 'B', s: '字 zì 汉字 / 词 cí 词语 / 句 jù 句子 / 文 wén 语文 / 数 shù 数学 / 图 tú 图画 / 课 kè 上课 / 班 bān 班级 / 题 tí 题目 / 卷 juàn 考卷' },
+  { lv: 4, cat: '学校', f: 'B', s: '师 shī 老师 / 生 shēng 学生 / 友 yǒu 朋友 / 同 tóng 同学 / 学 xué 上学 / 读 dú 读书 / 写 xiě 写字 / 抄 chāo 抄写 / 考 kǎo 考试 / 奖 jiǎng 得奖' },
+  { lv: 4, cat: '方位2', f: 'B', s: '东 dōng 东方 / 西 xī 西方 / 南 nán 南方 / 北 běi 北方 / 边 biān 旁边 / 旁 páng 身旁 / 间 jiān 房间 / 处 chù 到处 / 底 dǐ 底下 / 顶 dǐng 头顶' },
+  { lv: 4, cat: '地理', f: 'B', s: '海 hǎi 大海 / 江 jiāng 长江 / 河 hé 小河 / 湖 hú 湖水 / 溪 xī 小溪 / 泉 quán 泉水 / 岛 dǎo 小岛 / 岸 àn 河岸 / 田 tián 田地 / 野 yě 田野' },
+  { lv: 4, cat: '植物2', f: 'C', s: '花 huā 花朵 / 实 shí 果实 / 核 hé 果核 / 皮 pí 果皮 / 茎 jīng 花茎 / 芽 yá 发芽 / 藤 téng 瓜藤 / 菊 jú 菊花 / 梅 méi 梅花 / 兰 lán 兰花' },
+  { lv: 4, cat: '身体3', f: 'B', s: '血 xuè 血液 / 骨 gǔ 骨头 / 脑 nǎo 大脑 / 膝 xī 膝盖 / 唇 chún 嘴唇 / 齿 chǐ 乳齿 / 汗 hàn 出汗 / 泪 lèi 眼泪 / 声 shēng 大声 / 音 yīn 口音' },
+  { lv: 4, cat: '食物2', f: 'C', s: '味 wèi 味道 / 酸 suān 酸的 / 苦 kǔ 苦的 / 辣 là 辣的 / 咸 xián 咸的 / 鲜 xiān 新鲜 / 熟 shú 熟了 / 餐 cān 午餐 / 食 shí 食物 / 粮 liáng 粮食' },
+  { lv: 4, cat: '建筑', f: 'C', s: '塔 tǎ 宝塔 / 庙 miào 寺庙 / 宫 gōng 皇宫 / 殿 diàn 宫殿 / 墙 qiáng 围墙 / 瓦 wǎ 瓦片 / 砖 zhuān 砖头 / 柱 zhù 柱子 / 梯 tī 楼梯 / 台 tái 台子' },
+  { lv: 4, cat: '材料', f: 'C', s: '金 jīn 金子 / 银 yín 银子 / 铜 tóng 铜器 / 铁 tiě 铁块 / 钢 gāng 钢铁 / 玉 yù 玉石 / 泥 ní 泥土 / 沙 shā 沙子 / 尘 chén 灰尘 / 岩 yán 岩石' },
+  { lv: 4, cat: '数量', f: 'B', s: '半 bàn 一半 / 双 shuāng 一双 / 单 dān 单个 / 只 zhī 一只 / 件 jiàn 一件 / 条 tiáo 一条 / 张 zhāng 一张 / 把 bǎ 一把 / 群 qún 一群 / 些 xiē 一些' },
+
+  /* ========== L5 品德、情绪与性质（6-7岁）========== */
+  { lv: 5, cat: '品德', f: 'C', s: '善 shàn 善良 / 良 liáng 良好 / 美 měi 美丽 / 真 zhēn 真的 / 勤 qín 勤劳 / 勇 yǒng 勇气 / 敢 gǎn 勇敢 / 谦 qiān 谦虚 / 让 ràng 让座 / 诚 chéng 诚实' },
+  { lv: 5, cat: '社交2', f: 'B', s: '陪 péi 陪伴 / 伴 bàn 伙伴 / 护 hù 保护 / 夸 kuā 夸奖 / 吵 chǎo 吵架 / 闹 nào 打闹 / 和 hé 和好 / 平 píng 和平 / 亲 qīn 亲人 / 爱 ài 爱心' },
+  { lv: 5, cat: '家庭2', f: 'C', s: '叔 shū 叔叔 / 姑 gū 姑姑 / 舅 jiù 舅舅 / 姨 yí 阿姨 / 侄 zhí 侄子 / 孙 sūn 孙子 / 童 tóng 儿童 / 幼 yòu 幼儿 / 婆 pó 外婆 / 公 gōng 外公' },
+  { lv: 5, cat: '程度', f: 'A', s: '很 hěn 很好 / 太 tài 太大 / 最 zuì 最好 / 更 gèng 更好 / 极 jí 好极 / 挺 tǐng 挺好 / 稍 shāo 稍微 / 略 lüè 略微 / 甚 shèn 甚至 / 尤 yóu 尤其' },
+  { lv: 5, cat: '颜色2', f: 'C', s: '彩 cǎi 彩色 / 艳 yàn 鲜艳 / 淡 dàn 淡色 / 深 shēn 深色 / 浅 qiǎn 浅色 / 素 sù 素色 / 洁 jié 洁白 / 净 jìng 干净 / 斑 bān 斑点 / 纹 wén 花纹' },
+  { lv: 5, cat: '声音', f: 'C', s: '响 xiǎng 响声 / 静 jìng 安静 / 呼 hū 呼气 / 吸 xī 吸气 / 叹 tàn 叹气 / 喊 hǎn 喊叫 / 悄 qiāo 悄悄 / 默 mò 沉默 / 语 yǔ 语文 / 言 yán 发言' },
+  { lv: 5, cat: '形状', f: 'C', s: '圆 yuán 圆形 / 方 fāng 方形 / 尖 jiān 尖尖 / 扁 biǎn 扁的 / 弯 wān 弯曲 / 直 zhí 直线 / 影 yǐng 影子 / 光 guāng 阳光 / 色 sè 颜色 / 形 xíng 形状' },
+  { lv: 5, cat: '反义', f: 'C', s: '高 gāo 高的 / 矮 ǎi 矮的 / 胖 pàng 胖胖 / 瘦 shòu 瘦瘦 / 宽 kuān 宽的 / 窄 zhǎi 窄的 / 厚 hòu 厚的 / 薄 báo 薄的 / 粗 cū 粗的 / 细 xì 细的' },
+  { lv: 5, cat: '健康', f: 'B', s: '病 bìng 生病 / 药 yào 吃药 / 医 yī 医生 / 伤 shāng 受伤 / 愈 yù 病愈 / 休 xiū 午休 / 息 xī 歇息 / 健 jiàn 强健 / 康 kāng 安康 / 安 ān 平安' },
+  { lv: 5, cat: '自然2', f: 'C', s: '林 lín 树林 / 森 sēn 森林 / 原 yuán 草原 / 洞 dòng 山洞 / 谷 gǔ 山谷 / 峰 fēng 山峰 / 浪 làng 海浪 / 潮 cháo 潮水 / 空 kōng 天空 / 露 lù 露水' },
+
+  /* ========== L6 职业、工具与设计（7-8岁）========== */
+  { lv: 6, cat: '职业', f: 'B', s: '工 gōng 工人 / 农 nóng 农民 / 商 shāng 商人 / 兵 bīng 士兵 / 警 jǐng 警察 / 司 sī 司机 / 厨 chú 厨师 / 演 yǎn 演员 / 员 yuán 队员 / 记 jì 记者' },
+  { lv: 6, cat: '职业2', f: 'C', s: '者 zhě 作者 / 作 zuò 工作 / 剧 jù 话剧 / 匠 jiàng 工匠 / 徒 tú 徒弟 / 客 kè 客人 / 主 zhǔ 主人 / 邮 yóu 邮局 / 递 dì 邮递 / 售 shòu 出售' },
+  { lv: 6, cat: '工具', f: 'C', s: '锤 chuí 锤子 / 锯 jù 锯子 / 斧 fǔ 斧头 / 铲 chǎn 铲子 / 钳 qián 钳子 / 钉 dīng 钉子 / 网 wǎng 鱼网 / 钩 gōu 钩子 / 锁 suǒ 门锁 / 钥 yào 钥匙' },
+  { lv: 6, cat: '工具2', f: 'C', s: '钻 zuān 钻孔 / 磨 mó 磨刀 / 刻 kè 雕刻 / 雕 diāo 雕像 / 补 bǔ 补衣 / 修 xiū 修理 / 装 zhuāng 安装 / 拆 chāi 拆开 / 造 zào 制造 / 建 jiàn 建造' },
+  { lv: 6, cat: '布料', f: 'C', s: '棉 mián 棉花 / 麻 má 麻布 / 丝 sī 丝巾 / 毛 máo 毛衣 / 绒 róng 绒布 / 绸 chóu 丝绸 / 缎 duàn 绸缎 / 纱 shā 纱巾 / 线 xiàn 毛线 / 织 zhī 织布' },
+  { lv: 6, cat: '设计', f: 'C', s: '染 rǎn 染色 / 绣 xiù 绣花 / 裁 cái 裁剪 / 缝 féng 缝衣 / 针 zhēn 缝针 / 样 yàng 样式 / 款 kuǎn 新款 / 式 shì 款式 / 配 pèi 搭配 / 扮 bàn 打扮' },
+  { lv: 6, cat: '建筑2', f: 'C', s: '亭 tíng 亭子 / 堡 bǎo 城堡 / 仓 cāng 仓库 / 厂 chǎng 工厂 / 矿 kuàng 矿山 / 屋 wū 房屋 / 房 fáng 房间 / 厅 tīng 客厅 / 堂 táng 礼堂 / 室 shì 教室' },
+  { lv: 6, cat: '交通2', f: 'C', s: '汽 qì 汽油 / 驾 jià 驾车 / 驶 shǐ 行驶 / 骑 qí 骑车 / 载 zài 载客 / 运 yùn 运输 / 停 tíng 停车 / 速 sù 速度 / 道 dào 道路 / 轨 guǐ 轨道' },
+  { lv: 6, cat: '商业', f: 'C', s: '买 mǎi 买东西 / 卖 mài 卖东西 / 钱 qián 金钱 / 价 jià 价格 / 贵 guì 贵重 / 便 pián 便宜 / 宜 yí 便宜 / 货 huò 货物 / 品 pǐn 商品 / 标 biāo 商标' },
+  { lv: 6, cat: '时间2', f: 'C', s: '周 zhōu 周末 / 季 jì 季节 / 节 jié 节日 / 期 qī 星期 / 久 jiǔ 很久 / 常 cháng 常常 / 刚 gāng 刚才 / 才 cái 方才 / 已 yǐ 已经 / 曾 céng 曾经' },
+
+  /* ========== L7 社会、文化与心理（7-8岁）========== */
+  { lv: 7, cat: '社会', f: 'C', s: '国 guó 国家 / 州 zhōu 广州 / 省 shěng 省份 / 区 qū 地区 / 县 xiàn 县城 / 乡 xiāng 乡村 / 镇 zhèn 城镇 / 界 jiè 世界 / 境 jìng 边境 / 域 yù 区域' },
+  { lv: 7, cat: '群体', f: 'C', s: '民 mín 人民 / 众 zhòng 群众 / 人 rén 人们 / 士 shì 战士 / 族 zú 民族 / 姓 xìng 姓名 / 户 hù 户口 / 邻 lín 邻居 / 舍 shè 宿舍 / 居 jū 居住' },
+  { lv: 7, cat: '文化', f: 'C', s: '诗 shī 古诗 / 戏 xì 游戏 / 曲 qǔ 歌曲 / 艺 yì 艺术 / 术 shù 技术 / 器 qì 乐器 / 典 diǎn 字典 / 礼 lǐ 礼貌 / 俗 sú 风俗 / 庆 qìng 庆祝' },
+  { lv: 7, cat: '通信', f: 'C', s: '信 xìn 写信 / 话 huà 电话 / 报 bào 报纸 / 消 xiāo 消息 / 通 tōng 通知 / 知 zhī 知道 / 联 lián 联络 / 络 luò 联络 / 码 mǎ 号码 / 号 hào 号码' },
+  { lv: 7, cat: '心理', f: 'C', s: '神 shén 精神 / 精 jīng 精神 / 力 lì 力气 / 志 zhì 志气 / 意 yì 心意 / 念 niàn 想念 / 思 sī 思考 / 想 xiǎng 心想 / 情 qíng 心情 / 感 gǎn 感觉' },
+  { lv: 7, cat: '方向', f: 'C', s: '向 xiàng 方向 / 往 wǎng 往前 / 从 cóng 从前 / 到 dào 到达 / 至 zhì 至今 / 由 yóu 由于 / 沿 yán 沿着 / 顺 shùn 顺着 / 逆 nì 逆风 / 返 fǎn 返回' },
+  { lv: 7, cat: '变化', f: 'C', s: '变 biàn 变化 / 化 huà 变化 / 成 chéng 变成 / 灭 miè 消灭 / 增 zēng 增加 / 减 jiǎn 减少 / 转 zhuǎn 转弯 / 换 huàn 交换 / 改 gǎi 改变 / 移 yí 移动' },
+  { lv: 7, cat: '关系', f: 'C', s: '系 xì 关系 / 连 lián 连接 / 接 jiē 接住 / 合 hé 合作 / 离 lí 离开 / 聚 jù 聚会 / 散 sàn 散开 / 并 bìng 并且 / 随 suí 随着 / 附 fù 附加' },
+  { lv: 7, cat: '度量', f: 'C', s: '寸 cùn 尺寸 / 丈 zhàng 丈量 / 斤 jīn 斤两 / 两 liǎng 两个 / 斗 dǒu 斗笠 / 升 shēng 升斗 / 亩 mǔ 田亩 / 顷 qǐng 公顷 / 度 dù 温度 / 量 liàng 重量' },
+  { lv: 7, cat: '方位3', f: 'C', s: '此 cǐ 此处 / 彼 bǐ 彼此 / 各 gè 各个 / 某 mǒu 某人 / 另 lìng 另外 / 其 qí 其他 / 余 yú 其余 / 该 gāi 应该 / 凡 fán 平凡 / 诸 zhū 诸位' },
+
+  /* ========== L8 性质、智能与经济（7-8岁）========== */
+  { lv: 8, cat: '性质', f: 'C', s: '优 yōu 优秀 / 劣 liè 劣质 / 强 qiáng 强大 / 弱 ruò 弱小 / 硬 yìng 坚硬 / 软 ruǎn 柔软 / 稀 xī 稀疏 / 紧 jǐn 紧密 / 滑 huá 光滑 / 糙 cāo 粗糙' },
+  { lv: 8, cat: '程度2', f: 'C', s: '完 wán 完成 / 整 zhěng 完整 / 缺 quē 缺少 / 足 zú 足够 / 够 gòu 够了 / 丰 fēng 丰富 / 富 fù 富有 / 乏 fá 缺乏 / 满 mǎn 满意 / 溢 yì 溢出' },
+  { lv: 8, cat: '状态2', f: 'C', s: '稳 wěn 稳定 / 定 dìng 一定 / 乱 luàn 混乱 / 齐 qí 整齐 / 匀 yún 均匀 / 均 jūn 平均 / 纯 chún 纯洁 / 杂 zá 复杂 / 清 qīng 清楚 / 浊 zhuó 浑浊' },
+  { lv: 8, cat: '智能', f: 'C', s: '智 zhì 智慧 / 慧 huì 聪慧 / 聪 cōng 聪明 / 能 néng 能力 / 技 jì 技术 / 巧 qiǎo 灵巧 / 笨 bèn 笨拙 / 灵 líng 灵活 / 悟 wù 领悟 / 觉 jué 感觉' },
+  { lv: 8, cat: '行为', f: 'C', s: '做 zuò 做事 / 忙 máng 忙碌 / 办 bàn 办法 / 理 lǐ 道理 / 管 guǎn 管理 / 试 shì 试试 / 用 yòng 使用 / 使 shǐ 使用 / 借 jiè 借给 / 还 huán 归还' },
+  { lv: 8, cat: '言语', f: 'C', s: '讲 jiǎng 讲话 / 谈 tán 谈话 / 论 lùn 讨论 / 议 yì 会议 / 评 píng 评价 / 述 shù 讲述 / 释 shì 解释 / 劝 quàn 劝告 / 骗 piàn 骗人 / 哄 hǒng 哄人' },
+  { lv: 8, cat: '思维', f: 'C', s: '忘 wàng 忘记 / 猜 cāi 猜想 / 疑 yí 怀疑 / 解 jiě 理解 / 审 shěn 审视 / 察 chá 观察 / 析 xī 分析 / 忆 yì 回忆 / 懂 dǒng 懂得 / 辨 biàn 分辨' },
+  { lv: 8, cat: '经济', f: 'C', s: '贫 pín 贫穷 / 穷 qióng 穷人 / 财 cái 财富 / 产 chǎn 财产 / 收 shōu 收入 / 支 zhī 支出 / 存 cún 存钱 / 取 qǔ 取钱 / 值 zhí 价值 / 算 suàn 计算' },
+  { lv: 8, cat: '法则', f: 'C', s: '法 fǎ 办法 / 规 guī 规则 / 律 lǜ 规律 / 则 zé 规则 / 章 zhāng 文章 / 制 zhì 制度 / 令 lìng 命令 / 禁 jìn 禁止 / 许 xǔ 允许 / 准 zhǔn 批准' },
+  { lv: 8, cat: '因果', f: 'C', s: '因 yīn 因为 / 故 gù 故事 / 致 zhì 导致 / 以 yǐ 以后 / 凭 píng 凭借 / 据 jù 根据 / 依 yī 依靠 / 靠 kào 依靠 / 赖 lài 依赖 / 缘 yuán 缘分' },
+
+  /* ========== L9 虚词与功能词（小学中年级）========== */
+  { lv: 9, cat: '助词', f: 'A', s: '的 de 我的 / 地 de 快地 / 得 de 跑得 / 着 zhe 看着 / 了 le 走了 / 过 guò 走过 / 们 men 我们 / 吗 ma 好吗 / 呢 ne 是呢 / 吧 ba 走吧' },
+  { lv: 9, cat: '介词', f: 'A', s: '在 zài 现在 / 于 yú 等于 / 为 wèi 为了 / 替 tì 代替 / 当 dāng 当作 / 除 chú 除了 / 及 jí 及时 / 趁 chèn 趁机 / 按 àn 按照 / 照 zhào 按照' },
+  { lv: 9, cat: '连词', f: 'A', s: '与 yǔ 参与 / 或 huò 或者 / 但 dàn 但是 / 而 ér 而且 / 且 qiě 而且 / 若 ruò 若是 / 如 rú 如果 / 假 jiǎ 假如 / 即 jí 即使 / 虽 suī 虽然' },
+  { lv: 9, cat: '代词', f: 'A', s: '这 zhè 这个 / 那 nà 那个 / 哪 nǎ 哪个 / 谁 shuí 是谁 / 什 shén 什么 / 么 me 什么 / 怎 zěn 怎么 / 自 zì 自己 / 己 jǐ 自己 / 咱 zán 咱们' },
+  { lv: 9, cat: '副词A', f: 'A', s: '都 dōu 都是 / 也 yě 也是 / 再 zài 再见 / 就 jiù 就是 / 总 zǒng 总是 / 每 měi 每天 / 屡 lǚ 屡次 / 频 pín 频繁 / 又 yòu 又是 / 互 hù 互相' },
+  { lv: 9, cat: '副词B', f: 'A', s: '不 bù 不要 / 没 méi 没有 / 别 bié 别的 / 莫 mò 莫非 / 勿 wù 勿忘 / 未 wèi 未来 / 无 wú 没有 / 否 fǒu 是否 / 决 jué 决定 / 绝 jué 绝对' },
+  { lv: 9, cat: '副词C', f: 'C', s: '忽 hū 忽然 / 渐 jiàn 渐渐 / 突 tū 突然 / 猛 měng 猛烈 / 徐 xú 徐徐 / 缓 huǎn 缓慢 / 顿 dùn 顿时 / 骤 zhòu 骤然 / 恰 qià 恰当 / 偏 piān 偏偏' },
+  { lv: 9, cat: '数量2', f: 'B', s: '百 bǎi 一百 / 千 qiān 一千 / 万 wàn 一万 / 亿 yì 一亿 / 零 líng 零钱 / 几 jǐ 几个 / 倍 bèi 一倍 / 次 cì 一次 / 遍 biàn 一遍 / 趟 tàng 一趟' },
+  { lv: 9, cat: '语气', f: 'B', s: '啊 ā 好啊 / 呀 ya 好呀 / 哦 ó 哦呀 / 嗯 ńg 嗯嗯 / 唉 āi 唉呀 / 哎 āi 哎呀 / 嘿 hēi 嘿嘿 / 啦 la 好啦 / 嘛 ma 好嘛 / 哇 wa 好哇' },
+  { lv: 9, cat: '判断', f: 'A', s: '是 shì 是的 / 属 shǔ 属于 / 像 xiàng 好像 / 似 sì 似乎 / 称 chēng 称呼 / 谓 wèi 所谓 / 犹 yóu 犹如 / 乃 nǎi 乃是 / 具 jù 具有 / 备 bèi 准备' },
+
+  /* ========== L10 书面语与次常用实词（小学中年级）========== */
+  { lv: 10, cat: '书面', f: 'C', s: '之 zhī 之间 / 所 suǒ 所以 / 何 hé 何时 / 斯 sī 斯文 / 兹 zī 兹日 / 夫 fū 夫人 / 兮 xī 巧兮 / 矣 yǐ 久矣 / 焉 yān 心焉 / 哉 zāi 妙哉' },
+  { lv: 10, cat: '书面2', f: 'C', s: '亦 yì 亦然 / 复 fù 反复 / 尚 shàng 尚且 / 仍 réng 仍然 / 永 yǒng 永远 / 恒 héng 永恒 / 皆 jiē 皆是 / 俱 jù 俱全 / 悉 xī 熟悉 / 尽 jǐn 尽管' },
+  { lv: 10, cat: '动作2', f: 'C', s: '止 zhǐ 停止 / 行 xíng 行走 / 动 dòng 运动 / 待 dài 等待 / 遇 yù 遇见 / 逢 féng 相逢 / 追 zhuī 追赶 / 赶 gǎn 赶路 / 逃 táo 逃跑 / 躲 duǒ 躲藏' },
+  { lv: 10, cat: '名词', f: 'C', s: '事 shì 事情 / 物 wù 物品 / 况 kuàng 情况 / 态 tài 状态 / 类 lèi 种类 / 种 zhǒng 种类 / 部 bù 部分 / 局 jú 局面 / 端 duān 开端 / 层 céng 层次' },
+  { lv: 10, cat: '性质2', f: 'C', s: '奇 qí 奇怪 / 怪 guài 奇怪 / 特 tè 特别 / 普 pǔ 普通 / 般 bān 一般 / 巨 jù 巨大 / 伟 wěi 伟大 / 微 wēi 微小 / 广 guǎng 广大 / 浩 hào 浩大' },
+  { lv: 10, cat: '组织', f: 'C', s: '队 duì 队伍 / 集 jí 集合 / 团 tuán 团队 / 社 shè 社区 / 协 xié 协助 / 盟 méng 联盟 / 派 pài 派别 / 党 dǎng 党派 / 军 jūn 军队 / 营 yíng 军营' },
+  { lv: 10, cat: '动作3', f: 'C', s: '求 qiú 要求 / 需 xū 需要 / 应 yīng 应该 / 愿 yuàn 愿意 / 肯 kěn 肯定 / 允 yǔn 允许 / 拒 jù 拒绝 / 受 shòu 接受 / 获 huò 获得 / 赢 yíng 赢得' },
+  { lv: 10, cat: '时间3', f: 'C', s: '世 shì 世界 / 代 dài 时代 / 纪 jì 世纪 / 历 lì 历史 / 史 shǐ 历史 / 古 gǔ 古代 / 初 chū 当初 / 末 mò 周末 / 终 zhōng 最终 / 始 shǐ 开始' },
+  { lv: 10, cat: '空间', f: 'C', s: '宇 yǔ 宇宙 / 宙 zhòu 宇宙 / 际 jì 国际 / 限 xiàn 限度 / 距 jù 距离 / 远 yuǎn 远方 / 近 jìn 近处 / 遥 yáo 遥远 / 阔 kuò 广阔 / 敞 chǎng 宽敞' },
+  { lv: 10, cat: '人物', f: 'B', s: '儿 ér 儿童 / 女 nǚ 女孩 / 子 zǐ 孩子 / 男 nán 男孩 / 母 mǔ 母亲 / 父 fù 父亲 / 朋 péng 朋友 / 会 huì 开会 / 对 duì 对的 / 全 quán 全部' },
+];
+
+/** 展开成扁平字表 */
+const WORDS = [];
+for (const g of RAW_WORDS) {
+  for (const item of g.s.split('/')) {
+    const t = item.trim();
+    if (!t) continue;
+    const sp = t.split(/\s+/);
+    WORDS.push({ c: sp[0], p: sp[1] || '', lv: g.lv, cat: g.cat, e: sp[2] || '', f: g.f });
+  }
+}
+
+/** 按字取条目 */
+const WORD_MAP = {};
+for (const w of WORDS) WORD_MAP[w.c] = w;
+
+
+/* ===== icons.js ===== */
+/**
+ * 图标库：L1-L2 前 200 字的专属图标
+ *
+ * 统一规格：48×48 viewBox，2.5px 圆头描边，扁平无渐变
+ * 值为 SVG 内部片段（可含 path / circle / ellipse / rect），渲染时外套 <svg>
+ * 颜色类图标内嵌 fill 直接表现色彩
+ */
+
+const ICONS_L1 = {
+  /* ---------- 穿戴 ---------- */
+  '衣': '<path d="M17 9 L10 13 L13 21 L17 19 V40 H31 V19 L35 21 L38 13 L31 9 L27 13 C25 15 23 15 21 13 Z"/>',
+  '帽': '<path d="M9 31 C9 20 16 15 24 15 C32 15 39 20 39 31 Z"/><path d="M5 31 H43"/>',
+  '鞋': '<path d="M7 32 H27 C32 32 37 29 40 25 C41 23 40 21 38 22 L31 24 C29 26 25 27 20 28 L7 31 Z"/>',
+  '袜': '<path d="M17 9 H25 V25 C25 29 29 31 33 33 L35 38 H27 L15 34 C13 33 13 31 13 29 V9 Z"/>',
+  '裤': '<path d="M14 8 H34 L36 40 H28 L24 24 L20 40 H12 Z"/>',
+  '裙': '<path d="M17 9 H31 L29 19 H19 Z"/><path d="M15 22 H33 L37 40 H11 Z"/>',
+  '衫': '<path d="M17 9 L10 13 L13 21 L17 19 V40 H31 V19 L35 21 L38 13 L31 9 L27 13 C25 15 23 15 21 13 Z"/><path d="M24 19 V40 M21 25 H22.5 M21 31 H22.5"/>',
+  '巾': '<path d="M15 9 C15 15 20 17 24 17 C28 17 33 15 33 9 L33 40 H27 V17 H21 V40 H15 Z"/>',
+  '带': '<path d="M7 19 H41 V29 H7 Z"/><path d="M18 19 V29 M30 19 V29"/>',
+  '布': '<path d="M9 11 H39 V37 H9 Z"/><path d="M9 24 H39 M20 11 V24 M30 24 V37"/>',
+
+  /* ---------- 颜色 ---------- */
+  '红': '<circle cx="24" cy="24" r="13" fill="#FF4D4D" stroke="none"/>',
+  '黄': '<circle cx="24" cy="24" r="13" fill="#FFD23F" stroke="none"/>',
+  '蓝': '<circle cx="24" cy="24" r="13" fill="#4DA3FF" stroke="none"/>',
+  '绿': '<circle cx="24" cy="24" r="13" fill="#5CD65C" stroke="none"/>',
+  '白': '<circle cx="24" cy="24" r="13" fill="#FFFFFF" stroke="#C9CDD4"/>',
+  '黑': '<circle cx="24" cy="24" r="13" fill="#3A3F4B" stroke="none"/>',
+  '粉': '<circle cx="24" cy="24" r="13" fill="#FF9EC4" stroke="none"/>',
+  '橙': '<circle cx="24" cy="24" r="13" fill="#FF9F40" stroke="none"/>',
+  '紫': '<circle cx="24" cy="24" r="13" fill="#B57BED" stroke="none"/>',
+  '灰': '<circle cx="24" cy="24" r="13" fill="#A8AFBA" stroke="none"/>',
+
+  /* ---------- 身体 ---------- */
+  '头': '<path d="M24 7 C15 7 11 13 11 22 C11 29 14 33 18 35 L18 42 L30 42 L30 35 C34 33 37 29 37 22 C37 13 33 7 24 7 Z"/>',
+  '手': '<path d="M14 41 V27 C14 22 11 18 12 15 C13 12 15.5 12.5 15.5 16 V23 M15.5 23 V11 C15.5 8 18 8 18 11 V23 M18 23 V9 C18 6 20.5 6 20.5 9 V23 M20.5 23 V12 C20.5 9 23 9 23 12 V23 M23 23 V17 C23 14 26 14 26 17 V31 C26 37 23 41 19 41 C16 41 14 39 14 35 Z"/>',
+  '脚': '<path d="M18 40 H28 C31 40 33 38 32 34 L31 22 C30 15 27 12 24 12 C21 12 17 15 16 22 L15 34 C14 38 15 40 18 40 Z"/><path d="M15 34 H33"/>',
+  '眼': '<path d="M6 24 C12 16 36 16 42 24 C36 32 12 32 6 24 Z"/><path d="M19 24 a5 5 0 1 0 10 0 a5 5 0 1 0 -10 0"/>',
+  '耳': '<path d="M30 8 C24 8 18 13 18 22 C18 27 20 31 22 34 C23 36 23 38 22 40"/><path d="M30 8 C36 9 38 15 36 21 C35 25 32 27 30 27 C27 27 26 24 27 21 C28 18 31 18 32 20"/>',
+  '口': '<path d="M11 23 C15 31 33 31 37 23"/>',
+  '鼻': '<path d="M24 12 V28 C24 32 20 34 17 32 C14 30 15 26 18 25"/><path d="M24 28 C24 32 28 34 31 32 C34 30 33 26 30 25"/>',
+  '牙': '<path d="M14 16 C14 12 18 10 20 13 C22 16 26 16 28 13 C30 10 34 12 34 16 V26 C34 32 30 38 24 38 C18 38 14 32 14 26 Z"/><path d="M24 16 V34"/>',
+  '发': '<path d="M11 32 C9 18 16 7 24 7 C32 7 39 18 37 32"/><path d="M15 32 C15 24 16 16 19 11 M33 32 C33 24 32 16 29 11 M24 7 V14"/>',
+  '脸': '<path d="M8 24 a16 16 0 1 0 32 0 a16 16 0 1 0 -32 0"/><path d="M17 20 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0 M27 20 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0"/><path d="M17 29 C20 33 28 33 31 29"/>',
+
+  /* ---------- 家人 ---------- */
+  '爸': '<circle cx="24" cy="11" r="6"/><path d="M24 19 C18 19 14 23 14 29 L14 42 M34 42 L34 29 C34 23 30 19 24 19 Z"/>',
+  '妈': '<circle cx="24" cy="11" r="6"/><path d="M24 19 C18 19 14 23 14 29 L14 42 M34 42 L34 29 C34 23 30 19 24 19 Z"/><path d="M14 22 C10 20 8 26 10 30 C11 33 13 34 14 34 M34 22 C38 20 40 26 38 30 C37 33 35 34 34 34"/>',
+  '爷': '<circle cx="24" cy="11" r="6"/><path d="M24 19 C18 19 14 23 14 29 L14 42 M34 42 L34 29 C34 23 30 19 24 19 Z"/><path d="M19 17 C22 20 26 20 29 17"/>',
+  '奶': '<circle cx="24" cy="11" r="6"/><path d="M24 19 C18 19 14 23 14 29 L14 42 M34 42 L34 29 C34 23 30 19 24 19 Z"/><path d="M14 22 C10 20 8 26 10 30 C11 33 13 34 14 34 M34 22 C38 20 40 26 38 30 C37 33 35 34 34 34 M19 17 C22 19 26 19 29 17"/>',
+  '哥': '<circle cx="24" cy="13" r="5.5"/><path d="M24 21 C19 21 16 24 16 29 L16 42 M32 42 L32 29 C32 24 29 21 24 21 Z"/>',
+  '姐': '<circle cx="24" cy="13" r="5.5"/><path d="M24 21 C19 21 16 24 16 29 L16 42 M32 42 L32 29 C32 24 29 21 24 21 Z"/><path d="M16 24 C12 22 10 28 12 32 C13 35 15 36 16 36 M32 24 C36 22 38 28 36 32 C35 35 33 36 32 36"/>',
+  '弟': '<circle cx="24" cy="17" r="5"/><path d="M24 24 C20 24 17 27 17 31 L17 42 M31 42 L31 31 C31 27 28 24 24 24 Z"/>',
+  '妹': '<circle cx="24" cy="17" r="5"/><path d="M24 24 C20 24 17 27 17 31 L17 42 M31 42 L31 31 C31 27 28 24 24 24 Z"/><path d="M17 27 C14 25 12 30 14 33 C15 35 16 36 17 36 M31 27 C34 25 36 30 34 33 C33 35 32 36 31 36"/>',
+  '娃': '<circle cx="24" cy="14" r="7"/><circle cx="21" cy="13" r="1.4" fill="currentColor" stroke="none"/><circle cx="27" cy="13" r="1.4" fill="currentColor" stroke="none"/><path d="M24 23 C19 23 16 26 16 31 L16 42 M32 42 L32 31 C32 26 29 23 24 23 Z M21 18 C23 20 25 20 27 18"/>',
+  '宝': '<path d="M24 6 L30 14 L41 16 L33 24 L35 36 L24 30 L13 36 L15 24 L7 16 L18 14 Z"/>',
+
+  /* ---------- 动物 ---------- */
+  '熊': '<circle cx="14" cy="14" r="5"/><circle cx="34" cy="14" r="5"/><circle cx="24" cy="26" r="13"/><circle cx="19" cy="23" r="1.8" fill="currentColor" stroke="none"/><circle cx="29" cy="23" r="1.8" fill="currentColor" stroke="none"/><path d="M20 31 C22 34 26 34 28 31"/>',
+  '兔': '<path d="M17 24 C13 14 16 6 19 8 C21 10 19 18 19 22"/><path d="M31 24 C35 14 32 6 29 8 C27 10 29 18 29 22"/><circle cx="24" cy="28" r="11"/><circle cx="20" cy="26" r="1.8" fill="currentColor" stroke="none"/><circle cx="28" cy="26" r="1.8" fill="currentColor" stroke="none"/><path d="M24 30 V33 M21 34 C23 36 25 36 27 34"/>',
+  '猫': '<path d="M13 20 L12 10 L20 15"/><path d="M35 20 L36 10 L28 15"/><circle cx="24" cy="27" r="12"/><circle cx="19" cy="25" r="1.8" fill="currentColor" stroke="none"/><circle cx="29" cy="25" r="1.8" fill="currentColor" stroke="none"/><path d="M24 30 V33 M21 34 C23 36 25 36 27 34 M13 27 H18 M30 27 H35"/>',
+  '狗': '<path d="M12 24 C10 30 12 34 14 34 C16 34 16 30 15 26"/><path d="M36 24 C38 30 36 34 34 34 C32 34 32 30 33 26"/><circle cx="24" cy="26" r="12"/><circle cx="19" cy="24" r="1.8" fill="currentColor" stroke="none"/><circle cx="29" cy="24" r="1.8" fill="currentColor" stroke="none"/><path d="M24 29 V32 M20 33 C22 36 26 36 28 33"/>',
+  '鸟': '<circle cx="28" cy="20" r="8"/><path d="M20 24 C16 28 12 34 14 38 C16 41 20 38 22 34 C24 30 26 27 28 26"/><circle cx="30" cy="18" r="1.5" fill="currentColor" stroke="none"/><path d="M35 20 L41 22 L35 24"/>',
+  '鱼': '<path d="M8 24 C14 16 28 16 34 24 C28 32 14 32 8 24 Z"/><path d="M34 24 L42 18 L42 30 Z"/><circle cx="17" cy="22" r="1.8" fill="currentColor" stroke="none"/>',
+  '虫': '<ellipse cx="24" cy="28" rx="8" ry="11"/><path d="M16 22 C12 16 10 12 12 10 C14 8 18 12 20 18"/><path d="M32 22 C36 16 38 12 36 10 C34 8 30 12 28 18"/><circle cx="21" cy="24" r="1.5" fill="currentColor" stroke="none"/><circle cx="27" cy="24" r="1.5" fill="currentColor" stroke="none"/>',
+  '马': '<path d="M14 40 V26 C14 18 18 12 24 12 C28 12 31 15 32 19 L36 22 C38 24 37 28 34 28 L32 27 V40 M22 40 V32 M28 40 V32"/><path d="M20 16 C18 12 16 10 18 9 C20 8 22 11 23 14"/>',
+  '牛': '<path d="M12 20 C10 16 12 12 14 14 C16 16 15 20 14 22"/><path d="M36 20 C38 16 36 12 34 14 C32 16 33 20 34 22"/><path d="M16 22 C16 16 20 12 24 12 C28 12 32 16 32 22 C32 30 28 36 24 36 C20 36 16 30 16 22 Z"/><circle cx="20" cy="24" r="1.8" fill="currentColor" stroke="none"/><circle cx="28" cy="24" r="1.8" fill="currentColor" stroke="none"/><path d="M20 31 C22 33 26 33 28 31"/>',
+  '羊': '<path d="M14 20 C12 16 10 18 12 21 C14 24 16 24 16 22"/><path d="M34 20 C36 16 38 18 36 21 C34 24 32 24 32 22"/><circle cx="24" cy="27" r="11"/><path d="M17 21 C19 17 29 17 31 21 C33 24 30 26 24 26 C18 26 15 24 17 21 Z"/><circle cx="20" cy="28" r="1.6" fill="currentColor" stroke="none"/><circle cx="28" cy="28" r="1.6" fill="currentColor" stroke="none"/>',
+
+  /* ---------- 自然 ---------- */
+  '日': '<circle cx="24" cy="24" r="10"/><path d="M24 6 V10 M24 38 V42 M6 24 H10 M38 24 H42 M11 11 L14 14 M34 34 L37 37 M37 11 L34 14 M14 34 L11 37"/>',
+  '月': '<path d="M30 8 A16 16 0 1 0 30 40 A13 13 0 1 1 30 8 Z"/>',
+  '星': '<path d="M24 6 L29 18 L42 19 L32 28 L35 41 L24 34 L13 41 L16 28 L6 19 L19 18 Z"/>',
+  '云': '<path d="M14 33 C9 33 7 29 9 26 C8 21 13 18 17 20 C19 14 27 13 31 17 C33 16 36 17 37 20 C41 20 42 25 39 28 C40 32 37 33 34 33 Z"/>',
+  '雨': '<path d="M14 28 C9 28 7 24 9 21 C8 16 13 13 17 15 C19 9 27 8 31 12 C33 11 36 12 37 15 C41 15 42 20 39 23 C40 27 37 28 34 28 Z"/><path d="M16 33 L14 40 M24 33 L22 40 M32 33 L30 40"/>',
+  '雪': '<path d="M24 8 V40 M8 24 H40 M12 12 L36 36 M36 12 L12 36"/>',
+  '风': '<path d="M6 18 H28 C32 18 34 16 34 14 C34 12 32 10 29 10 C26 10 24 12 24 15"/><path d="M6 28 H32 C36 28 38 26 38 24 C38 22 36 20 33 20 C30 20 28 22 28 25"/><path d="M6 38 H22 C25 38 27 36 27 34 C27 32 25 30 22 30 C19 30 17 32 17 35"/>',
+  '水': '<path d="M24 8 C24 8 12 22 12 30 C12 37 17 41 24 41 C31 41 36 37 36 30 C36 22 24 8 24 8 Z"/>',
+  '火': '<path d="M24 42 C16 42 10 36 10 28 C10 20 16 14 20 8 C22 14 20 18 22 20 C26 24 28 20 28 16 C32 22 38 26 38 32 C38 38 32 42 24 42 Z"/>',
+  '山': '<path d="M4 38 L16 18 L24 28 L32 14 L44 38 Z"/>',
+
+  /* ---------- 数词 ---------- */
+  '一': '<circle cx="24" cy="24" r="5"/>',
+  '二': '<circle cx="15" cy="24" r="5"/><circle cx="33" cy="24" r="5"/>',
+  '三': '<circle cx="10" cy="24" r="4.5"/><circle cx="24" cy="24" r="4.5"/><circle cx="38" cy="24" r="4.5"/>',
+  '四': '<circle cx="15" cy="16" r="4.5"/><circle cx="33" cy="16" r="4.5"/><circle cx="15" cy="32" r="4.5"/><circle cx="33" cy="32" r="4.5"/>',
+  '五': '<circle cx="11" cy="15" r="4"/><circle cx="24" cy="15" r="4"/><circle cx="37" cy="15" r="4"/><circle cx="17" cy="31" r="4"/><circle cx="31" cy="31" r="4"/>',
+  '六': '<circle cx="11" cy="16" r="4"/><circle cx="24" cy="16" r="4"/><circle cx="37" cy="16" r="4"/><circle cx="11" cy="32" r="4"/><circle cx="24" cy="32" r="4"/><circle cx="37" cy="32" r="4"/>',
+  '七': '<circle cx="12" cy="12" r="3.6"/><circle cx="24" cy="12" r="3.6"/><circle cx="36" cy="12" r="3.6"/><circle cx="24" cy="24" r="3.6"/><circle cx="12" cy="36" r="3.6"/><circle cx="24" cy="36" r="3.6"/><circle cx="36" cy="36" r="3.6"/>',
+  '八': '<circle cx="11" cy="15" r="3.4"/><circle cx="21.6" cy="15" r="3.4"/><circle cx="32.2" cy="15" r="3.4"/><circle cx="42.8" cy="15" r="3.4"/><circle cx="11" cy="31" r="3.4"/><circle cx="21.6" cy="31" r="3.4"/><circle cx="32.2" cy="31" r="3.4"/><circle cx="42.8" cy="31" r="3.4"/>',
+  '九': '<circle cx="11" cy="12" r="3.4"/><circle cx="24" cy="12" r="3.4"/><circle cx="37" cy="12" r="3.4"/><circle cx="11" cy="24" r="3.4"/><circle cx="24" cy="24" r="3.4"/><circle cx="37" cy="24" r="3.4"/><circle cx="11" cy="36" r="3.4"/><circle cx="24" cy="36" r="3.4"/><circle cx="37" cy="36" r="3.4"/>',
+  '十': '<circle cx="8" cy="17" r="3"/><circle cx="17" cy="17" r="3"/><circle cx="26" cy="17" r="3"/><circle cx="35" cy="17" r="3"/><circle cx="44" cy="17" r="3"/><circle cx="8" cy="31" r="3"/><circle cx="17" cy="31" r="3"/><circle cx="26" cy="31" r="3"/><circle cx="35" cy="31" r="3"/><circle cx="44" cy="31" r="3"/>',
+
+  /* ---------- 方位 ---------- */
+  '上': '<path d="M24 40 V12 M13 23 L24 12 L35 23"/>',
+  '下': '<path d="M24 8 V36 M13 25 L24 36 L35 25"/>',
+  '左': '<path d="M40 24 H10 M21 13 L10 24 L21 35"/>',
+  '右': '<path d="M8 24 H38 M27 13 L38 24 L27 35"/>',
+  '中': '<path d="M9 9 H39 V39 H9 Z"/><path d="M24 17 V31 M17 24 H31"/>',
+  '里': '<path d="M8 8 H40 V40 H8 Z"/><circle cx="24" cy="24" r="6"/>',
+  '外': '<path d="M13 15 H35 V35 H13 Z"/><path d="M24 22 V8 M19 13 L24 8 L29 13"/>',
+  '前': '<path d="M24 42 V16 M14 26 L24 16 L34 26"/><path d="M12 8 H36"/>',
+  '后': '<path d="M24 6 V32 M14 22 L24 32 L34 22"/><path d="M12 40 H36"/>',
+  '大': '<circle cx="24" cy="24" r="17"/>',
+
+  /* ---------- 家居 ---------- */
+  '家': '<path d="M8 22 L24 8 L40 22"/><path d="M12 20 V40 H36 V20"/><path d="M20 40 V28 H28 V40"/>',
+  '门': '<path d="M12 42 V10 H36 V42"/><circle cx="30" cy="26" r="1.8" fill="currentColor" stroke="none"/>',
+  '窗': '<path d="M10 10 H38 V38 H10 Z"/><path d="M24 10 V38 M10 24 H38"/>',
+  '床': '<path d="M8 40 V22 M8 28 H40 V40"/><path d="M8 28 V18 H18 V28"/><circle cx="14" cy="23" r="3"/>',
+  '桌': '<path d="M6 18 H42 M10 18 V40 M38 18 V40"/><path d="M10 26 H38"/>',
+  '椅': '<path d="M17 42 V22 H31 V42 M31 22 V6 H25"/><path d="M17 30 H31"/>',
+  '灯': '<path d="M24 8 V16"/><path d="M14 22 H34 L30 34 H18 Z"/><path d="M20 34 V40 H28 V34"/>',
+  '车': '<path d="M8 32 L10 22 C11 18 14 16 18 16 H30 C34 16 37 18 38 22 L40 32"/><path d="M6 32 H42"/><circle cx="15" cy="34" r="4"/><circle cx="33" cy="34" r="4"/>',
+  '书': '<path d="M8 10 H20 C22 10 24 12 24 14 V40 C24 38 22 36 20 36 H8 Z"/><path d="M40 10 H28 C26 10 24 12 24 14 V40 C24 38 26 36 28 36 H40 Z"/>',
+  '球': '<circle cx="24" cy="24" r="16"/><path d="M8 24 H40 M24 8 V40"/><path d="M13 13 C18 20 18 28 13 35 M35 13 C30 20 30 28 35 35"/>',
+
+  /* ---------- 饮食 ---------- */
+  '米': '<ellipse cx="17" cy="19" rx="3.6" ry="6.5" transform="rotate(-32 17 19)"/><ellipse cx="31" cy="19" rx="3.6" ry="6.5" transform="rotate(32 31 19)"/><ellipse cx="24" cy="32" rx="3.6" ry="6.5"/>',
+  '饭': '<path d="M8 22 C8 34 15 40 24 40 C33 40 40 34 40 22 Z"/><path d="M14 22 C14 16 18 12 24 12 C30 12 34 16 34 22"/><path d="M6 42 H42"/>',
+  '蛋': '<ellipse cx="24" cy="26" rx="11" ry="14"/>',
+  '汁': '<path d="M15 10 H33 L29 40 H19 Z"/><path d="M19 24 H31"/>',
+  '糖': '<path d="M14 24 C14 16 20 10 24 10 C28 10 34 16 34 24 C34 32 28 38 24 38 C20 38 14 32 14 24 Z"/><path d="M10 20 L14 24 L10 28 M38 20 L34 24 L38 28"/>',
+  '果': '<circle cx="24" cy="28" r="13"/><path d="M24 15 C24 10 26 8 30 7"/>',
+  '汤': '<path d="M8 24 H40 C40 34 33 40 24 40 C15 40 8 34 8 24 Z"/><path d="M16 16 C16 12 18 10 20 10 M24 14 C24 10 26 8 28 8 M32 16 C32 12 34 10 36 10"/>',
+  '菜': '<path d="M24 40 C16 40 10 34 10 26 C10 18 16 12 24 12 C32 12 38 18 38 26 C38 34 32 40 24 40 Z"/><path d="M24 40 V20 M24 26 L16 20 M24 30 L32 24"/>',
+  '肉': '<path d="M10 18 C10 12 16 8 24 8 C32 8 38 12 38 18 C38 30 32 40 24 40 C16 40 10 30 10 18 Z"/><circle cx="20" cy="22" r="4"/>',
+  '茶': '<path d="M12 18 H34 V28 C34 34 30 38 23 38 C16 38 12 34 12 28 Z"/><path d="M34 22 H40 C40 26 38 28 36 28"/><path d="M18 12 C18 8 20 6 22 6 M26 12 C26 8 28 6 30 6"/>',
+};
+
+/* ==================== L2 ==================== */
+
+const ICONS_L2 = {
+  /* ---------- 餐具 ---------- */
+  '杯': '<path d="M14 12 H34 L31 38 H17 Z"/><path d="M14 20 H33"/>',
+  '碗': '<path d="M8 22 H40 C40 34 33 40 24 40 C15 40 8 34 8 22 Z"/><path d="M6 42 H42"/><path d="M14 16 C18 14 30 14 34 16"/>',
+  '勺': '<ellipse cx="24" cy="14" rx="8" ry="9"/><path d="M24 23 V42"/>',
+  '盘': '<ellipse cx="24" cy="24" rx="18" ry="9"/><path d="M10 24 C10 31 16 36 24 36 C32 36 38 31 38 24"/>',
+  '瓶': '<path d="M19 6 H29 V14 C29 16 32 18 32 22 V40 C32 41 31 42 30 42 H18 C17 42 16 41 16 40 V22 C16 18 19 16 19 14 Z"/><path d="M16 30 H32"/>',
+  '盒': '<path d="M10 18 H38 V40 H10 Z"/><path d="M10 18 L16 10 H32 L38 18"/>',
+  '篮': '<path d="M8 20 H40 L36 40 H12 Z"/><path d="M14 20 C14 11 34 11 34 20"/><path d="M16 29 H32"/>',
+  '袋': '<path d="M12 16 H36 L38 40 H10 Z"/><path d="M17 16 C17 8 31 8 31 16"/>',
+  '锅': '<path d="M10 20 H38 V34 C38 37 35 40 31 40 H17 C13 40 10 37 10 34 Z"/><path d="M38 24 H44 M10 24 H4"/><path d="M19 14 C19 10 21 8 24 8 C27 8 29 10 29 14"/>',
+  '刀': '<path d="M9 33 L30 13 C34 10 38 12 38 16 L38 23 L15 38 Z"/><path d="M9 33 L5 40"/>',
+
+  /* ---------- 家具 ---------- */
+  '柜': '<path d="M12 8 H36 V40 H12 Z"/><path d="M24 8 V40 M12 24 H36"/><circle cx="20" cy="16" r="1.6" fill="currentColor" stroke="none"/><circle cx="28" cy="16" r="1.6" fill="currentColor" stroke="none"/><circle cx="20" cy="32" r="1.6" fill="currentColor" stroke="none"/><circle cx="28" cy="32" r="1.6" fill="currentColor" stroke="none"/>',
+  '箱': '<path d="M8 18 H40 V40 H8 Z"/><path d="M8 18 L14 10 H34 L40 18"/><path d="M20 18 V40 M28 18 V40"/>',
+  '架': '<path d="M24 6 V42"/><path d="M10 14 H38 M12 26 H36 M14 38 H34"/>',
+  '帘': '<path d="M8 6 H40 V18 H8 Z"/><path d="M12 18 V42 M20 18 V40 M28 18 V42 M36 18 V40"/>',
+  '被': '<path d="M8 34 C8 28 14 24 24 24 C34 24 40 28 40 34 V40 H8 Z"/><path d="M8 34 H40 M16 28 C18 25 22 25 24 28 C26 25 30 25 32 28"/>',
+  '枕': '<path d="M8 20 C8 14 14 11 24 11 C34 11 40 14 40 20 C40 27 34 30 24 30 C14 30 8 27 8 20 Z"/><path d="M14 18 C18 16 22 17 24 19 C26 17 30 16 34 18"/>',
+  '毯': '<path d="M8 12 H40 V36 H8 Z"/><path d="M8 24 H40 M20 12 V36 M32 12 V36"/>',
+  '钟': '<circle cx="24" cy="24" r="16"/><path d="M24 12 V24 L32 28"/>',
+  '镜': '<ellipse cx="24" cy="19" rx="12" ry="14"/><path d="M24 33 V42 M18 42 H30"/>',
+  '桶': '<path d="M12 16 H36 L33 40 H15 Z"/><path d="M10 16 C10 11 38 11 38 16"/><path d="M14 27 H34"/>',
+
+  /* ---------- 文具 ---------- */
+  '笔': '<path d="M12 36 L30 18 C33 15 37 19 34 22 L17 39 Z"/><path d="M30 18 L35 13 M12 36 L8 40"/>',
+  '纸': '<path d="M12 6 H32 L38 12 V42 H12 Z"/><path d="M32 6 V12 H38"/><path d="M17 20 H33 M17 27 H33 M17 34 H27"/>',
+  '本': '<path d="M12 8 H36 V40 H12 Z"/><path d="M18 8 V40"/><path d="M22 18 H32 M22 26 H32"/>',
+  '画': '<path d="M8 8 H40 V40 H8 Z"/><path d="M14 33 L20 24 L26 30 L32 20 L36 26"/><circle cx="17" cy="16" r="2.5"/>',
+  '剪': '<circle cx="15" cy="34" r="5"/><circle cx="33" cy="34" r="5"/><path d="M18 31 L32 14 M30 31 L16 14"/>',
+  '尺': '<path d="M8 30 L18 8 H34 L24 30 Z"/><path d="M14 22 H20 M17 16 H23 M11 26 H17"/>',
+  '胶': '<path d="M18 12 H30 V38 H18 Z"/><path d="M18 18 H30"/><path d="M22 12 V8 H26 V12"/>',
+  '涂': '<path d="M12 36 L26 22 C29 19 33 23 30 26 L16 40 Z"/><path d="M8 42 H20"/>',
+  '折': '<path d="M10 38 L24 10 L38 38 Z"/><path d="M17 24 H31"/><path d="M10 38 H38"/>',
+  '贴': '<path d="M10 12 H38 V30 L24 38 L10 30 Z"/><circle cx="24" cy="21" r="4"/>',
+
+  /* ---------- 服饰 ---------- */
+  '扣': '<circle cx="24" cy="24" r="12"/><circle cx="19" cy="21" r="1.8" fill="currentColor" stroke="none"/><circle cx="29" cy="21" r="1.8" fill="currentColor" stroke="none"/><circle cx="19" cy="29" r="1.8" fill="currentColor" stroke="none"/><circle cx="29" cy="29" r="1.8" fill="currentColor" stroke="none"/>',
+  '袖': '<path d="M14 10 H34 V26 C34 32 28 38 24 38 C20 38 14 32 14 26 Z"/><path d="M14 18 H34"/>',
+  '领': '<path d="M14 12 L24 22 L34 12"/><path d="M10 10 H38"/>',
+  '靴': '<path d="M16 8 V28 C16 32 20 34 24 36 L32 40 H36 C38 40 38 36 36 34 L30 30 V8 Z"/><path d="M16 20 H30"/>',
+  '伞': '<path d="M6 24 C6 14 14 8 24 8 C34 8 42 14 42 24 Z"/><path d="M24 24 V38 C24 41 20 41 20 38 M24 24 V19"/>',
+  '表': '<circle cx="24" cy="24" r="11"/><path d="M24 17 V24 L29 27"/><path d="M18 11 L19 6 H29 L30 11 M18 37 L19 42 H29 L30 37"/>',
+  '链': '<ellipse cx="16" cy="24" rx="7" ry="5"/><ellipse cx="32" cy="24" rx="7" ry="5"/><path d="M23 22 H25"/>',
+  '环': '<circle cx="24" cy="27" r="12"/><path d="M24 15 C24 10 26 8 28 7"/>',
+  '扇': '<path d="M24 42 V22"/><path d="M24 22 C14 22 7 16 7 9 H41 C41 16 34 22 24 22 Z"/><path d="M17 22 C17 16 16 12 15 9 M31 22 C31 16 32 12 33 9"/>',
+  '帕': '<path d="M9 13 H39 V35 H9 Z"/><path d="M9 21 H39 M9 29 H39"/>',
+
+  /* ---------- 交通 ---------- */
+  '船': '<path d="M6 30 H42 L36 40 H12 Z"/><path d="M24 30 V8 L38 26"/>',
+  '机': '<path d="M24 5 L27 19 L42 27 L42 31 L27 28 V37 H21 V28 L6 31 L6 27 L21 19 Z"/>',
+  '路': '<path d="M8 42 L16 8 H32 L40 42 Z"/><path d="M24 12 V18 M24 24 V30 M24 36 V42"/>',
+  '桥': '<path d="M4 30 C4 20 14 16 24 16 C34 16 44 20 44 30"/><path d="M4 30 V40 M44 30 V40"/><path d="M10 24 V30 M24 18 V30 M38 24 V30"/>',
+  '航': '<path d="M4 40 H44"/><path d="M12 34 C16 28 20 24 24 18 C26 14 30 10 34 8 M29 8 H36 V15"/>',
+  '票': '<rect x="8" y="14" width="32" height="24" rx="2"/><path d="M20 14 V38" stroke-dasharray="3 3"/>',
+  '轮': '<circle cx="24" cy="24" r="16"/><circle cx="24" cy="24" r="6"/><path d="M24 8 V16 M24 32 V40 M8 24 H16 M32 24 H40"/>',
+  '街': '<path d="M6 42 H42"/><path d="M10 42 V16 H20 V42 M28 42 V10 H38 V42"/><path d="M10 22 H20 M10 30 H20 M28 18 H38 M28 28 H38"/>',
+  '巷': '<path d="M8 42 V14 H18 V42 M30 42 V14 H40 V42"/><path d="M8 42 H40"/><path d="M8 26 H18 M30 26 H40"/>',
+  '港': '<path d="M6 34 H42"/><path d="M14 34 V18 H24 V34"/><path d="M28 34 V12 L44 24 L28 34"/>',
+
+  /* ---------- 场所 ---------- */
+  '园': '<path d="M6 42 H42"/><circle cx="16" cy="18" r="8"/><path d="M16 26 V42"/><path d="M28 34 H40 V38 H28 Z M28 34 V30 H40 V34"/>',
+  '校': '<path d="M8 20 L24 10 L40 20"/><path d="M12 18 V40 H36 V18"/><path d="M20 40 V28 H28 V40"/><path d="M24 10 V5"/>',
+  '店': '<path d="M8 18 L12 10 H36 L40 18"/><path d="M8 18 V40 H40 V18 Z"/><path d="M18 40 V26 H30 V40"/>',
+  '院': '<path d="M6 40 H42"/><path d="M10 40 V20 H38 V40"/><path d="M18 40 V28 H30 V40"/><path d="M10 20 L24 12 L38 20"/>',
+  '楼': '<path d="M12 42 V10 H36 V42"/><path d="M18 16 H22 M26 16 H30 M18 24 H22 M26 24 H30 M18 32 H22 M26 32 H30"/><path d="M20 42 V34 H28 V42"/>',
+  '场': '<path d="M6 40 H42"/><path d="M12 40 V16 H36 V40"/><path d="M12 24 H36"/><circle cx="24" cy="32" r="4"/>',
+  '市': '<path d="M8 40 V16 H20 V40 M28 40 V22 H40 V40"/><path d="M6 40 H42"/><path d="M12 24 H16 M32 30 H36"/>',
+  '村': '<path d="M6 42 H42"/><path d="M8 42 V28 L16 20 L24 28 V42"/><path d="M26 42 V24 L34 16 L42 24 V42"/>',
+  '城': '<path d="M6 42 H42"/><path d="M8 42 V26 H18 V42 M20 42 V18 H30 V42 M32 42 V28 H42 V42"/><path d="M8 26 L13 20 L18 26 M20 18 L25 12 L30 18"/>',
+  '馆': '<path d="M8 20 L24 10 L40 20"/><path d="M12 18 V40 H36 V18"/><path d="M18 28 H30 M18 34 H30"/>',
+
+  /* ---------- 植物 ---------- */
+  '草': '<path d="M24 42 V20"/><path d="M24 30 C18 30 12 26 10 20 C16 20 22 24 24 30 Z"/><path d="M24 26 C30 26 36 22 38 16 C32 16 26 20 24 26 Z"/>',
+  '叶': '<path d="M10 38 C10 22 22 10 38 10 C38 26 26 38 10 38 Z"/><path d="M10 38 L38 10"/>',
+  '树': '<path d="M24 42 V26"/><circle cx="24" cy="18" r="12"/><path d="M24 30 L16 24 M24 32 L32 26"/>',
+  '枝': '<path d="M24 42 V8"/><path d="M24 20 L14 12 M24 28 L34 20 M24 14 L32 8"/>',
+  '根': '<path d="M24 6 V22"/><path d="M24 22 L14 32 M24 22 L34 32 M24 22 V36 M24 22 L18 38 M24 22 L30 38"/>',
+  '苗': '<path d="M24 42 V24"/><path d="M24 24 C24 16 16 14 12 18 C12 26 18 28 24 24 Z"/><path d="M24 24 C24 14 32 12 36 16 C36 24 30 28 24 24 Z"/>',
+  '竹': '<path d="M16 42 V10 M32 42 V14"/><path d="M16 22 H32 M16 32 H32"/><path d="M16 10 L12 6 M32 14 L36 10"/>',
+  '松': '<path d="M24 42 V34"/><path d="M24 6 L14 22 H34 Z"/><path d="M24 16 L10 34 H38 Z"/>',
+  '荷': '<ellipse cx="24" cy="30" rx="14" ry="5"/><path d="M24 30 C17 30 15 19 24 11 C33 19 31 30 24 30 Z"/><path d="M24 35 V42"/>',
+  '莲': '<path d="M8 31 H40 C40 37 33 42 24 42 C15 42 8 37 8 31 Z"/><circle cx="24" cy="25" r="8"/>',
+
+  /* ---------- 身体2 ---------- */
+  '腿': '<path d="M17 6 V20 C17 28 15 34 17 42 M31 6 V20 C31 28 33 34 31 42"/><path d="M17 20 H31"/>',
+  '臂': '<path d="M9 38 C12 30 18 24 26 20 C30 18 34 14 36 10"/><circle cx="37" cy="8" r="4"/>',
+  '指': '<path d="M20 42 V22 C20 18 18 15 18 12 C18 9 20.5 7.5 22.5 9.5 C24.5 11.5 24 15 24 18 V42"/>',
+  '肚': '<path d="M12 24 C12 16 34 16 36 24 C38 34 32 42 24 42 C16 42 10 34 12 24 Z"/><circle cx="24" cy="28" r="3"/>',
+  '眉': '<path d="M8 28 C14 20 20 18 24 22 C28 18 34 20 40 28"/>',
+  '舌': '<path d="M12 20 C12 14 18 12 24 12 C30 12 36 14 36 20 C36 30 30 38 24 38 C18 38 12 30 12 20 Z"/><path d="M24 18 V32"/>',
+  '掌': '<path d="M14 40 C14 30 12 24 14 20 C16 16 18 18 18 22 V28 M18 28 V14 C18 10 21 10 21 14 V28 M21 28 V12 C21 8 24 8 24 12 V28 M24 28 V14 C24 10 27 10 27 14 V28 M27 28 V20 C27 16 30 16 30 20 C30 30 28 40 22 40 C17 40 14 37 14 32 Z"/>',
+  '肩': '<path d="M8 40 C10 28 16 22 24 22 C32 22 38 28 40 40"/>',
+  '背': '<path d="M14 8 H34 L36 40 H12 Z"/><path d="M24 8 V40"/>',
+  '腰': '<path d="M10 16 H38"/><path d="M14 16 C14 26 10 32 14 40 M34 16 C34 26 38 32 34 40"/><path d="M18 24 H30"/>',
+
+  /* ---------- 玩具 ---------- */
+  '珠': '<circle cx="16" cy="18" r="6"/><circle cx="31" cy="27" r="6"/><circle cx="17" cy="35" r="4.5"/>',
+  '鼓': '<ellipse cx="24" cy="14" rx="14" ry="5"/><path d="M10 14 V32 C10 38 16 42 24 42 C32 42 38 38 38 32 V14"/><path d="M10 24 H38"/><path d="M8 14 L4 8 M40 14 L44 8"/>',
+  '琴': '<path d="M6 14 H42 V34 H6 Z"/><path d="M16 14 V34 M26 14 V34 M36 14 V34"/>',
+  '棋': '<path d="M14 38 C14 30 18 26 24 26 C30 26 34 30 34 38 Z"/><circle cx="24" cy="18" r="7"/><path d="M10 42 H38"/>',
+  '牌': '<path d="M14 8 H34 V40 H14 Z"/><path d="M20 18 H28 M20 26 H28 M20 34 H28"/>',
+  '铃': '<path d="M12 32 C12 24 16 18 24 18 C32 18 36 24 36 32 Z"/><path d="M8 32 H40"/><path d="M24 32 V38 M20 40 H28"/>',
+  '偶': '<circle cx="24" cy="12" r="7"/><path d="M24 19 C18 19 15 23 15 29 L15 42 M33 42 L33 29 C33 23 30 19 24 19 Z"/><path d="M15 29 L8 36 M33 29 L40 36"/>',
+  '圈': '<circle cx="24" cy="24" r="15"/>',
+  '绳': '<path d="M12 12 C24 12 24 24 12 24 C24 24 24 36 12 36"/><path d="M36 12 C24 12 24 24 36 24 C24 24 24 36 36 36"/>',
+  '泡': '<circle cx="18" cy="20" r="7"/><circle cx="32" cy="32" r="5"/><circle cx="31" cy="14" r="3"/>',
+
+  /* ---------- 食物 ---------- */
+  '面': '<path d="M8 22 H40 C40 34 33 40 24 40 C15 40 8 34 8 22 Z"/><path d="M14 20 C16 12 32 12 34 20"/>',
+  '包': '<path d="M12 26 C12 18 17 12 24 12 C31 12 36 18 36 26 C36 34 31 38 24 38 C17 38 12 34 12 26 Z"/><path d="M16 22 C19 18 29 18 32 22 M16 30 C19 26 29 26 32 30"/>',
+  '豆': '<path d="M10 30 C10 18 22 10 34 14 C40 16 40 26 32 32 C24 38 10 38 10 30 Z"/><circle cx="18" cy="24" r="3"/><circle cx="27" cy="26" r="3"/>',
+  '油': '<path d="M18 8 H30 V14 C30 16 33 18 33 22 V40 C33 41 32 42 31 42 H17 C16 42 15 41 15 40 V22 C15 18 18 16 18 14 Z"/><circle cx="24" cy="30" r="4"/>',
+  '盐': '<path d="M14 16 H34 L36 40 H12 Z"/><path d="M18 24 H30 M19 31 H29"/>',
+  '桃': '<path d="M24 40 C16 40 10 34 10 26 C10 18 16 14 24 14 C32 14 38 18 38 26 C38 34 32 40 24 40 Z"/><path d="M24 14 C24 20 22 28 24 40"/><path d="M24 14 C24 8 28 6 32 6"/>',
+  '梨': '<path d="M24 40 C17 40 12 34 12 26 C12 18 17 12 20 10 C22 8 24 12 24 14 C24 12 26 8 28 10 C31 12 36 18 36 26 C36 34 31 40 24 40 Z"/><path d="M24 14 V6"/>',
+  '饼': '<circle cx="24" cy="24" r="14"/><circle cx="19" cy="20" r="1.6" fill="currentColor" stroke="none"/><circle cx="29" cy="20" r="1.6" fill="currentColor" stroke="none"/><circle cx="24" cy="27" r="1.6" fill="currentColor" stroke="none"/><circle cx="17" cy="30" r="1.6" fill="currentColor" stroke="none"/><circle cx="31" cy="30" r="1.6" fill="currentColor" stroke="none"/>',
+  '粥': '<path d="M8 22 H40 C40 34 33 40 24 40 C15 40 8 34 8 22 Z"/><path d="M16 18 C16 12 20 9 24 9 C28 9 32 12 32 18"/><circle cx="20" cy="30" r="2"/><circle cx="28" cy="32" r="2"/>',
+  '瓜': '<ellipse cx="24" cy="28" rx="15" ry="12"/><path d="M9 28 H39"/><path d="M24 16 C24 10 28 8 32 8"/>',
+};
+
+/** 合并全部图标 */
+const ICONS = Object.assign({}, ICONS_L1, ICONS_L2);
+
+
+/* ===== characters.js ===== */
+/**
+ * 角色库：小熊 / 小兔 / 小猫 / 企鹅
+ *
+ * 【关键设计】四个角色共享同一套骨架坐标（viewBox 0 0 200 260），
+ * 差异只在耳朵形状、体色与五官。因此所有服饰可以通用，无需为每个角色单独画。
+ *
+ * layers 按顺序叠加，SLOT_* 为服饰插槽：
+ *   ears → legs → body → arms → [TOP] → head → face → [BOTTOM] → [SHOES] → [HAT] → [ACC]
+ *   上衣画在头之前，领口会被头自然遮住；下装/鞋/帽/配饰依次覆盖。
+ */
+
+const CH_VIEWBOX = '0 0 200 260';
+
+/* 各角色通用骨架（体色用 {b} 肚皮用 {y} 描边用 {s}） */
+function skel(o) {
+  return {
+    legs:
+      `<ellipse cx="78" cy="218" rx="17" ry="22" fill="${o.b}" stroke="${o.s}" stroke-width="4"/>` +
+      `<ellipse cx="122" cy="218" rx="17" ry="22" fill="${o.b}" stroke="${o.s}" stroke-width="4"/>`,
+    body:
+      `<ellipse cx="100" cy="168" rx="45" ry="52" fill="${o.b}" stroke="${o.s}" stroke-width="4"/>` +
+      `<ellipse cx="100" cy="176" rx="31" ry="37" fill="${o.y}"/>`,
+    arms:
+      `<ellipse cx="50" cy="166" rx="15" ry="28" fill="${o.b}" stroke="${o.s}" stroke-width="4"/>` +
+      `<ellipse cx="150" cy="166" rx="15" ry="28" fill="${o.b}" stroke="${o.s}" stroke-width="4"/>`,
+  };
+}
+
+const CHARACTERS = [
+  {
+    id: 'bear',
+    name: '小熊',
+    py: 'xiǎo xióng',
+    word: '熊',
+    unlockStars: 0,
+    theme: '#D2A679',
+    layers: (() => {
+      const o = { b: '#D2A679', y: '#F7E9D4', s: '#6B4A2F' };
+      const k = skel(o);
+      return {
+        ears:
+          `<circle cx="66" cy="36" r="18" fill="${o.b}" stroke="${o.s}" stroke-width="4"/>` +
+          `<circle cx="134" cy="36" r="18" fill="${o.b}" stroke="${o.s}" stroke-width="4"/>`,
+        legs: k.legs,
+        body: k.body,
+        arms: k.arms,
+        head: `<circle cx="100" cy="76" r="45" fill="${o.b}" stroke="${o.s}" stroke-width="4"/>`,
+        face:
+          `<ellipse cx="100" cy="93" rx="23" ry="16" fill="${o.y}"/>` +
+          `<circle cx="83" cy="68" r="5.5" fill="#3A2E24"/><circle cx="117" cy="68" r="5.5" fill="#3A2E24"/>` +
+          `<circle cx="85" cy="66" r="1.8" fill="#fff"/><circle cx="119" cy="66" r="1.8" fill="#fff"/>` +
+          `<ellipse cx="100" cy="86" rx="7" ry="5" fill="#3A2E24"/>` +
+          `<path d="M100 91 V96 M100 96 C96 101 92 99 90 96 M100 96 C104 101 108 99 110 96" fill="none" stroke="#3A2E24" stroke-width="3" stroke-linecap="round"/>`,
+      };
+    })(),
+  },
+  {
+    id: 'rabbit',
+    name: '小兔',
+    py: 'xiǎo tù',
+    word: '兔',
+    unlockStars: 10,
+    theme: '#FFC9D9',
+    layers: (() => {
+      const o = { b: '#FAF5EE', y: '#FFFFFF', s: '#8A7A6A' };
+      const k = skel(o);
+      return {
+        ears:
+          `<ellipse cx="80" cy="24" rx="12" ry="36" fill="${o.b}" stroke="${o.s}" stroke-width="4" transform="rotate(-10 80 24)"/>` +
+          `<ellipse cx="120" cy="24" rx="12" ry="36" fill="${o.b}" stroke="${o.s}" stroke-width="4" transform="rotate(10 120 24)"/>` +
+          `<ellipse cx="80" cy="24" rx="6" ry="25" fill="#FFC9D9" transform="rotate(-10 80 24)"/>` +
+          `<ellipse cx="120" cy="24" rx="6" ry="25" fill="#FFC9D9" transform="rotate(10 120 24)"/>`,
+        legs: k.legs,
+        body: k.body,
+        arms: k.arms,
+        head: `<circle cx="100" cy="78" r="43" fill="${o.b}" stroke="${o.s}" stroke-width="4"/>`,
+        face:
+          `<circle cx="84" cy="72" r="5.5" fill="#3A2E24"/><circle cx="116" cy="72" r="5.5" fill="#3A2E24"/>` +
+          `<circle cx="86" cy="70" r="1.8" fill="#fff"/><circle cx="118" cy="70" r="1.8" fill="#fff"/>` +
+          `<path d="M100 88 L94 84 M100 88 L106 84 M100 84 V94" fill="none" stroke="#D9738F" stroke-width="3" stroke-linecap="round"/>` +
+          `<path d="M100 94 C96 100 92 99 91 96 M100 94 C104 100 108 99 109 96" fill="none" stroke="#3A2E24" stroke-width="3" stroke-linecap="round"/>` +
+          `<ellipse cx="70" cy="86" rx="7" ry="4.5" fill="#FFB3C8" opacity="0.75"/>` +
+          `<ellipse cx="130" cy="86" rx="7" ry="4.5" fill="#FFB3C8" opacity="0.75"/>`,
+      };
+    })(),
+  },
+  {
+    id: 'cat',
+    name: '小猫',
+    py: 'xiǎo māo',
+    word: '猫',
+    unlockStars: 20,
+    theme: '#C9BEE0',
+    layers: (() => {
+      const o = { b: '#CFC4E4', y: '#FBF8FF', s: '#6E6288' };
+      const k = skel(o);
+      return {
+        ears:
+          `<path d="M68 48 L60 12 L94 30 Z" fill="${o.b}" stroke="${o.s}" stroke-width="4" stroke-linejoin="round"/>` +
+          `<path d="M132 48 L140 12 L106 30 Z" fill="${o.b}" stroke="${o.s}" stroke-width="4" stroke-linejoin="round"/>` +
+          `<path d="M70 42 L66 22 L86 32 Z" fill="#FFC9D9"/>` +
+          `<path d="M130 42 L134 22 L114 32 Z" fill="#FFC9D9"/>`,
+        legs: k.legs,
+        body: k.body,
+        arms: k.arms,
+        head: `<circle cx="100" cy="78" r="43" fill="${o.b}" stroke="${o.s}" stroke-width="4"/>`,
+        face:
+          `<circle cx="84" cy="72" r="6" fill="#3A2E24"/><circle cx="116" cy="72" r="6" fill="#3A2E24"/>` +
+          `<circle cx="86" cy="70" r="2" fill="#fff"/><circle cx="118" cy="70" r="2" fill="#fff"/>` +
+          `<path d="M100 86 L95 82 L100 84 L105 82 Z" fill="#FF9FB4"/>` +
+          `<path d="M100 88 C96 94 92 93 91 90 M100 88 C104 94 108 93 109 90" fill="none" stroke="#3A2E24" stroke-width="3" stroke-linecap="round"/>` +
+          `<path d="M62 76 H80 M64 86 H82 M138 76 H120 M136 86 H118" stroke="#6E6288" stroke-width="2.5" stroke-linecap="round"/>`,
+      };
+    })(),
+  },
+  {
+    id: 'penguin',
+    name: '企鹅',
+    py: 'qǐ é',
+    word: '鸟',
+    unlockStars: 30,
+    theme: '#5A6B82',
+    layers: {
+      ears: '',
+      legs:
+        `<ellipse cx="80" cy="222" rx="17" ry="13" fill="#FF9F40" stroke="#D97F20" stroke-width="3"/>` +
+        `<ellipse cx="120" cy="222" rx="17" ry="13" fill="#FF9F40" stroke="#D97F20" stroke-width="3"/>`,
+      body:
+        `<ellipse cx="100" cy="168" rx="45" ry="52" fill="#41506B" stroke="#2A3240" stroke-width="4"/>` +
+        `<ellipse cx="100" cy="176" rx="31" ry="38" fill="#FFFFFF"/>`,
+      arms:
+        `<ellipse cx="48" cy="164" rx="13" ry="30" fill="#41506B" stroke="#2A3240" stroke-width="4"/>` +
+        `<ellipse cx="152" cy="164" rx="13" ry="30" fill="#41506B" stroke="#2A3240" stroke-width="4"/>`,
+      head: `<circle cx="100" cy="74" r="42" fill="#41506B" stroke="#2A3240" stroke-width="4"/>`,
+      face:
+        `<ellipse cx="100" cy="82" rx="27" ry="25" fill="#FFFFFF"/>` +
+        `<circle cx="86" cy="68" r="5.5" fill="#2A3240"/><circle cx="114" cy="68" r="5.5" fill="#2A3240"/>` +
+        `<circle cx="88" cy="66" r="1.8" fill="#fff"/><circle cx="116" cy="66" r="1.8" fill="#fff"/>` +
+        `<path d="M100 82 L111 91 L100 98 L89 91 Z" fill="#FF9F40" stroke="#D97F20" stroke-width="2.5" stroke-linejoin="round"/>`,
+    },
+  },
+];
+
+/** 角色头像（选择界面用）：只取耳朵+头+脸 */
+function charAvatar(ch) {
+  const L = ch.layers;
+  return `<svg viewBox="20 0 160 140" xmlns="http://www.w3.org/2000/svg">${L.ears}${L.head}${L.face}</svg>`;
+}
+
+/** 背景场景（由星星解锁） */
+const SCENES = [
+  { id: 'room', name: '小房间', unlockStars: 0, bg: '#FFF3E0', decor: '<circle cx="30" cy="40" r="14" fill="#FFE0B2"/><rect x="150" y="180" width="44" height="60" rx="6" fill="#FFCC80"/>' },
+  { id: 'snow', name: '雪地', unlockStars: 5, bg: '#E8F4FF', decor: '<circle cx="34" cy="230" r="16" fill="#fff"/><circle cx="166" cy="238" r="12" fill="#fff"/><path d="M0 250 H200" stroke="#fff" stroke-width="20"/>' },
+  { id: 'garden', name: '花园', unlockStars: 20, bg: '#EAF7E8', decor: '<circle cx="28" cy="200" r="18" fill="#A5D6A7"/><circle cx="172" cy="210" r="14" fill="#A5D6A7"/><path d="M0 246 H200" stroke="#8BC34A" stroke-width="16"/>' },
+  { id: 'beach', name: '海边', unlockStars: 35, bg: '#DFF6FF', decor: '<path d="M0 230 Q50 214 100 230 T200 230 V260 H0 Z" fill="#4FC3F7"/><circle cx="160" cy="46" r="18" fill="#FFD54F"/>' },
+];
+
+
+/* ===== clothes.js ===== */
+/**
+ * 服饰库与调色板
+ *
+ * 所有服饰坐标基于 characters.js 的统一骨架（viewBox 0 0 200 260）
+ * svg 中的 {c} 为颜色占位符，渲染时替换为调色板选中的色值
+ * tags 用于任务匹配：winter=保暖 rain=防雨 summer=凉爽 doctor=医生
+ */
+
+const COLORS = [
+  { hex: '#FF6B6B', word: '红' },
+  { hex: '#FFA94D', word: '橙' },
+  { hex: '#FFD43B', word: '黄' },
+  { hex: '#69DB7C', word: '绿' },
+  { hex: '#4DABF7', word: '蓝' },
+  { hex: '#B197FC', word: '紫' },
+  { hex: '#FF8EC7', word: '粉' },
+  { hex: '#FFFFFF', word: '白' },
+  { hex: '#495057', word: '黑' },
+  { hex: '#ADB5BD', word: '灰' },
+];
+
+const STROKE = '#5A4636';
+
+const CLOTHES = {
+  top: [
+    { id: 'tshirt', name: 'T恤', word: '衫', tags: ['summer'], svg: '<path d="M100 112 C86 112 76 116 68 120 L50 142 L61 156 L64 198 H136 L139 156 L150 142 L132 120 C124 116 114 112 100 112 Z" fill="{c}" stroke="' + STROKE + '" stroke-width="4" stroke-linejoin="round"/><path d="M84 114 C88 124 112 124 116 114" fill="none" stroke="' + STROKE + '" stroke-width="4"/>' },
+    { id: 'coat', name: '外套', word: '衣', tags: [], svg: '<path d="M100 110 C84 110 74 115 66 119 L48 143 L59 157 L62 206 H138 L141 157 L152 143 L134 119 C126 115 116 110 100 110 Z" fill="{c}" stroke="' + STROKE + '" stroke-width="4" stroke-linejoin="round"/><path d="M100 118 V206" fill="none" stroke="' + STROKE + '" stroke-width="3"/><circle cx="92" cy="142" r="3" fill="' + STROKE + '"/><circle cx="92" cy="164" r="3" fill="' + STROKE + '"/>' },
+    { id: 'down', name: '羽绒服', word: '冬', tags: ['winter'], svg: '<path d="M100 108 C82 108 72 114 64 119 L46 145 L58 159 L61 202 H139 L142 159 L154 145 L136 119 C128 114 118 108 100 108 Z" fill="{c}" stroke="' + STROKE + '" stroke-width="4" stroke-linejoin="round"/><path d="M62 146 H138 M62 168 H138 M62 190 H138" stroke="' + STROKE + '" stroke-width="2.5" opacity="0.4"/>' },
+    { id: 'raincoat', name: '雨衣', word: '雨', tags: ['rain'], svg: '<path d="M100 106 C80 106 68 112 60 118 L42 146 L55 160 L58 200 H142 L145 160 L158 146 L140 118 C132 112 120 106 100 106 Z" fill="{c}" stroke="' + STROKE + '" stroke-width="4" stroke-linejoin="round"/><path d="M74 108 C74 88 126 88 126 108 Z" fill="{c}" stroke="' + STROKE + '" stroke-width="4" stroke-linejoin="round"/>' },
+    { id: 'labcoat', name: '白大褂', word: '医', tags: ['doctor'], svg: '<path d="M100 110 C86 110 76 115 68 119 L50 143 L60 157 L63 212 H137 L140 157 L150 143 L132 119 C124 115 114 110 100 110 Z" fill="{c}" stroke="' + STROKE + '" stroke-width="4" stroke-linejoin="round"/><path d="M100 120 V212" fill="none" stroke="' + STROKE + '" stroke-width="2.5"/><path d="M86 132 V152 M114 132 V152" stroke="' + STROKE + '" stroke-width="2.5"/>' },
+    { id: 'sweater', name: '毛衣', word: '毛', tags: ['winter'], svg: '<path d="M100 112 C86 112 76 116 68 120 L50 142 L61 156 L64 198 H136 L139 156 L150 142 L132 120 C124 116 114 112 100 112 Z" fill="{c}" stroke="' + STROKE + '" stroke-width="4" stroke-linejoin="round"/><path d="M83 114 H117 V102 C117 95 83 95 83 102 Z" fill="{c}" stroke="' + STROKE + '" stroke-width="4" stroke-linejoin="round"/><path d="M64 178 H136" stroke="' + STROKE + '" stroke-width="3" opacity="0.45"/>' },
+    { id: 'dress', name: '连衣裙', word: '裙', tags: ['summer'], svg: '<path d="M100 112 C88 112 79 116 72 120 L58 140 L64 152 L50 222 H150 L136 152 L142 140 L128 120 C121 116 112 112 100 112 Z" fill="{c}" stroke="' + STROKE + '" stroke-width="4" stroke-linejoin="round"/><path d="M86 114 C90 122 110 122 114 114" fill="none" stroke="' + STROKE + '" stroke-width="3.5"/>' },
+  ],
+
+  bottom: [
+    { id: 'shorts', name: '短裤', word: '裤', tags: ['summer'], svg: '<path d="M62 176 H138 L134 212 H112 L100 192 L88 212 H66 Z" fill="{c}" stroke="' + STROKE + '" stroke-width="4" stroke-linejoin="round"/>' },
+    { id: 'pants', name: '长裤', word: '长', tags: [], svg: '<path d="M64 174 H136 L133 234 H112 L100 196 L88 234 H67 Z" fill="{c}" stroke="' + STROKE + '" stroke-width="4" stroke-linejoin="round"/>' },
+    { id: 'miniskirt', name: '短裙', word: '裙', tags: ['summer'], svg: '<path d="M66 174 H134 L148 214 H52 Z" fill="{c}" stroke="' + STROKE + '" stroke-width="4" stroke-linejoin="round"/>' },
+    { id: 'overalls', name: '背带裤', word: '带', tags: [], svg: '<path d="M64 174 H136 L133 232 H112 L100 196 L88 232 H67 Z" fill="{c}" stroke="' + STROKE + '" stroke-width="4" stroke-linejoin="round"/><path d="M74 140 L70 176 M126 140 L130 176" stroke="{c}" stroke-width="9" stroke-linecap="round"/>' },
+  ],
+
+  shoes: [
+    { id: 'sneaker', name: '运动鞋', word: '鞋', tags: [], svg: '<path d="M56 238 C54 228 64 222 78 222 C92 222 100 228 100 238 C100 245 90 250 78 250 C64 250 56 245 56 238 Z" fill="{c}" stroke="' + STROKE + '" stroke-width="4"/><path d="M100 238 C100 228 108 222 122 222 C136 222 146 228 144 238 C144 245 136 250 122 250 C108 250 100 245 100 238 Z" fill="{c}" stroke="' + STROKE + '" stroke-width="4"/>' },
+    { id: 'boot', name: '雨靴', word: '靴', tags: ['rain'], svg: '<path d="M62 204 H96 L98 238 C98 246 88 252 78 252 C66 252 60 246 60 238 Z" fill="{c}" stroke="' + STROKE + '" stroke-width="4" stroke-linejoin="round"/><path d="M104 204 H138 L140 238 C140 246 134 252 124 252 C112 252 106 246 106 238 Z" fill="{c}" stroke="' + STROKE + '" stroke-width="4" stroke-linejoin="round"/>' },
+    { id: 'sandal', name: '凉鞋', word: '夏', tags: ['summer'], svg: '<path d="M58 238 C58 230 68 226 78 226 C90 226 100 230 100 238 C100 244 90 248 78 248 C66 248 58 244 58 238 Z" fill="{c}" stroke="' + STROKE + '" stroke-width="3.5"/><path d="M60 234 L98 224" stroke="{c}" stroke-width="8" stroke-linecap="round"/><path d="M102 238 C102 230 110 226 122 226 C134 226 142 230 142 238 C142 244 134 248 122 248 C110 248 102 244 102 238 Z" fill="{c}" stroke="' + STROKE + '" stroke-width="3.5"/><path d="M102 224 L140 234" stroke="{c}" stroke-width="8" stroke-linecap="round"/>' },
+    { id: 'cottonshoe', name: '棉鞋', word: '冬', tags: ['winter'], svg: '<path d="M56 236 C54 224 66 218 78 218 C92 218 102 224 102 236 C102 246 90 252 78 252 C64 252 56 246 56 236 Z" fill="{c}" stroke="' + STROKE + '" stroke-width="4"/><path d="M98 236 C98 224 108 218 122 218 C136 218 146 224 144 236 C144 246 136 252 122 252 C108 252 98 246 98 236 Z" fill="{c}" stroke="' + STROKE + '" stroke-width="4"/>' },
+  ],
+
+  hat: [
+    { id: 'cap', name: '帽子', word: '帽', tags: [], svg: '<path d="M64 48 C64 24 80 10 100 10 C120 10 136 24 136 48 Z" fill="{c}" stroke="' + STROKE + '" stroke-width="4" stroke-linejoin="round"/><path d="M52 48 H148" stroke="' + STROKE + '" stroke-width="12" stroke-linecap="round"/><path d="M52 48 H148" stroke="{c}" stroke-width="6" stroke-linecap="round"/>' },
+    { id: 'beanie', name: '毛线帽', word: '冬', tags: ['winter'], svg: '<path d="M65 52 C65 26 81 8 100 8 C119 8 135 26 135 52 Z" fill="{c}" stroke="' + STROKE + '" stroke-width="4"/><rect x="56" y="50" width="88" height="15" rx="7" fill="{c}" stroke="' + STROKE + '" stroke-width="4"/><circle cx="100" cy="8" r="9" fill="{c}" stroke="' + STROKE + '" stroke-width="4"/>' },
+    { id: 'sunhat', name: '太阳帽', word: '日', tags: ['summer'], svg: '<path d="M68 50 C68 28 82 14 100 14 C118 14 132 28 132 50 Z" fill="{c}" stroke="' + STROKE + '" stroke-width="4"/><ellipse cx="100" cy="52" rx="54" ry="13" fill="{c}" stroke="' + STROKE + '" stroke-width="4"/>' },
+    { id: 'bow', name: '蝴蝶结', word: '头', tags: [], svg: '<path d="M100 30 L82 14 L82 46 Z" fill="{c}" stroke="' + STROKE + '" stroke-width="4" stroke-linejoin="round"/><path d="M100 30 L118 14 L118 46 Z" fill="{c}" stroke="' + STROKE + '" stroke-width="4" stroke-linejoin="round"/><circle cx="100" cy="30" r="8" fill="{c}" stroke="' + STROKE + '" stroke-width="4"/>' },
+  ],
+
+  acc: [
+    { id: 'scarf', name: '围巾', word: '巾', tags: ['winter'], svg: '<path d="M62 100 C62 118 138 118 138 100 L138 114 C138 132 62 132 62 114 Z" fill="{c}" stroke="' + STROKE + '" stroke-width="4" stroke-linejoin="round"/><path d="M112 126 L118 172 H138 L128 126 Z" fill="{c}" stroke="' + STROKE + '" stroke-width="4" stroke-linejoin="round"/>' },
+    { id: 'necklace', name: '项链', word: '链', tags: [], svg: '<path d="M74 104 C80 130 120 130 126 104" fill="none" stroke="{c}" stroke-width="6" stroke-linecap="round"/><circle cx="100" cy="130" r="9" fill="{c}" stroke="' + STROKE + '" stroke-width="3"/>' },
+    { id: 'watch', name: '手表', word: '表', tags: [], svg: '<rect x="42" y="170" width="18" height="30" rx="6" fill="{c}" stroke="' + STROKE + '" stroke-width="3.5"/><circle cx="51" cy="185" r="7" fill="#FFFFFF" stroke="' + STROKE + '" stroke-width="3"/>' },
+    { id: 'bag', name: '书包', word: '包', tags: [], svg: '<rect x="150" y="142" width="32" height="46" rx="10" fill="{c}" stroke="' + STROKE + '" stroke-width="4"/><path d="M156 142 C156 126 176 126 176 142" fill="none" stroke="' + STROKE + '" stroke-width="4"/>' },
+  ],
+};
+
+/** 插槽顺序与中文名 */
+const SLOTS = [
+  { key: 'top', name: '上衣' },
+  { key: 'bottom', name: '下装' },
+  { key: 'shoes', name: '鞋子' },
+  { key: 'hat', name: '帽子' },
+  { key: 'acc', name: '配饰' },
+];
+
+/** 按 id 取服饰定义 */
+const CLOTH_MAP = {};
+for (const k of Object.keys(CLOTHES)) {
+  for (const it of CLOTHES[k]) CLOTH_MAP[it.id] = Object.assign({ slot: k }, it);
+}
+
+
+/* ===== tasks.js ===== */
+/**
+ * 任务关卡（10 关，覆盖三条学习线）
+ *
+ * 类型：
+ *   wear   按 tag 搭配（生活认知线）
+ *   count  点够数量（数数线）
+ *   choice 单选（配对 / 规律 / 图选字）
+ *   multi  多选（分类）
+ *   compose 选字填空（汉字综合）
+ *
+ * 每关完成后盖一个汉字印章（stamp 字段）
+ */
+
+const TASKS = [
+  /* ---------- 生活认知线 ---------- */
+  {
+    id: 1, type: 'wear', line: 'life', stamp: '冬',
+    char: 'bear', scene: 'snow',
+    title: '小熊要去雪地里玩',
+    hint: '雪地里好冷呀，要穿得暖暖的',
+    require: { top: ['winter'], hat: ['winter'] },
+  },
+  {
+    id: 2, type: 'wear', line: 'life', stamp: '雨',
+    char: 'cat', scene: 'room',
+    title: '外面下雨啦',
+    hint: '出门可不能淋湿，想想穿什么',
+    require: { top: ['rain'], shoes: ['rain'] },
+  },
+  {
+    id: 3, type: 'wear', line: 'life', stamp: '医',
+    char: 'rabbit', scene: 'room',
+    title: '爸爸是医生',
+    hint: '医生上班穿什么衣服呢',
+    require: { top: ['doctor'] },
+  },
+  {
+    id: 4, type: 'wear', line: 'life', stamp: '夏',
+    char: 'penguin', scene: 'beach',
+    title: '小企鹅去海边',
+    hint: '海边好热呀，穿凉快一点',
+    require: { top: ['summer'], shoes: ['summer'] },
+  },
+
+  /* ---------- 数数与逻辑线 ---------- */
+  {
+    id: 5, type: 'count', line: 'number', stamp: '三',
+    char: 'rabbit', scene: 'garden',
+    title: '给小兔戴星星',
+    hint: '要戴 3 颗，点一下戴一颗',
+    target: 3, unit: '颗', icon: '星',
+  },
+  {
+    id: 6, type: 'choice', line: 'number', stamp: '双',
+    char: 'bear', scene: 'room',
+    title: '找出一样的袜子',
+    hint: '看看哪只和上面那只是一样的',
+    sample: { w: '袜', c: '#4DABF7' },
+    options: [
+      { w: '袜', c: '#4DABF7' }, { w: '袜', c: '#FF6B6B' },
+      { w: '袜', c: '#69DB7C' }, { w: '鞋', c: '#4DABF7' },
+    ],
+    answer: 0,
+  },
+  {
+    id: 7, type: 'multi', line: 'number', stamp: '红',
+    char: 'cat', scene: 'room',
+    title: '把红色的都放进篮子',
+    hint: '红红的东西，全都点一下',
+    options: [
+      { w: '果' }, { w: '叶' }, { w: '袜' },
+      { w: '伞' }, { w: '帽' }, { w: '云' },
+    ],
+    colors: ['#FF6B6B', '#69DB7C', '#FF6B6B', '#FFD43B', '#4DABF7', '#FFFFFF'],
+    answers: [0, 2],
+  },
+  {
+    id: 8, type: 'choice', line: 'number', stamp: '蓝',
+    char: 'penguin', scene: 'room',
+    title: '接下来该排什么',
+    hint: '红 蓝 红 蓝 …… 下一个是什么颜色',
+    sequence: ['#FF6B6B', '#4DABF7', '#FF6B6B', '#4DABF7'],
+    options: [
+      { w: '红', c: '#FF6B6B' }, { w: '蓝', c: '#4DABF7' }, { w: '绿', c: '#69DB7C' },
+    ],
+    answer: 1,
+  },
+
+  /* ---------- 汉字线 ---------- */
+  {
+    id: 9, type: 'choice', line: 'word', stamp: '帽',
+    char: 'bear', scene: 'room',
+    title: '哪个是「帽」',
+    hint: '听听这个字，找出它说的东西',
+    bigWord: '帽',
+    options: [{ w: '帽' }, { w: '鞋' }, { w: '袜' }, { w: '包' }],
+    answer: 0,
+  },
+  {
+    id: 10, type: 'compose', line: 'word', stamp: '衣',
+    char: 'rabbit', scene: 'room',
+    title: '把句子补完整',
+    hint: '小熊穿（ ）衣 —— 太阳是红色的',
+    sentence: ['小', '熊', '穿', null, '衣'],
+    blankOptions: [{ w: '红', c: '#FF6B6B' }, { w: '蓝', c: '#4DABF7' }, { w: '绿', c: '#69DB7C' }],
+    answer: 0,
+  },
+];
+
+/** 任务完成判定：outfit 是否满足 require（outfit[slot] 存的是服饰 id 字符串） */
+function checkRequire(outfit, require) {
+  if (!require) return true;
+  for (const slot of Object.keys(require)) {
+    const id = outfit[slot];
+    if (!id) return false;
+    const def = CLOTH_MAP[id];
+    if (!def) return false;
+    const needTags = require[slot];
+    const ok = needTags.some((t) => (def.tags || []).indexOf(t) >= 0);
+    if (!ok) return false;
+  }
+  return true;
+}
+
+
+/* ===== storage.js ===== */
+/**
+ * 存储层
+ *
+ * 关键约束：安卓 Chrome 在 file:// 下 localStorage 可用，但按文件路径隔离。
+ * 因此必须提示用户把文件放在固定目录、从同一路径打开，否则存档会丢。
+ * 作品集只存结构化 JSON（不存图片），缩略图运行时重渲染，100 件仅数十 KB。
+ */
+
+const DEFAULT_DATA = {
+  v: 1,
+  stars: 0,
+  level: 1,            // 当前字表级别 1-10
+  learned: [],         // 已获得的汉字印章
+  works: [],           // 作品集（结构化 JSON）
+  doneTasks: [],       // 已完成的任务 id
+  today: { date: '', ms: 0 },
+  settings: {
+    dailyLimit: 30,    // 每日总量（分钟）
+    sessionLimit: 15,  // 单次时长（分钟）
+    sleepStart: '21:00',
+    sleepEnd: '07:00',
+  },
+  praise: '',          // 家长录的鼓励语
+};
+
+const Storage = {
+  available: false,
+  reason: '',
+  data: null,
+
+  init() {
+    try {
+      const k = '__t__' + Date.now();
+      window.localStorage.setItem(k, '1');
+      window.localStorage.removeItem(k);
+      this.available = true;
+    } catch (e) {
+      this.available = false;
+      this.reason = '浏览器禁用了本地存储';
+    }
+    this.load();
+    return this.available;
+  },
+
+  load() {
+    let d = null;
+    if (this.available) {
+      try {
+        const raw = window.localStorage.getItem('dressup_v1');
+        if (raw) d = JSON.parse(raw);
+      } catch (e) { d = null; }
+    }
+    this.data = Object.assign({}, DEFAULT_DATA, d || {});
+    // 补齐嵌套字段
+    this.data.today = Object.assign({ date: '', ms: 0 }, this.data.today);
+    this.data.settings = Object.assign({}, DEFAULT_DATA.settings, this.data.settings);
+    this.rollDate();
+  },
+
+  save() {
+    if (!this.available) return false;
+    try {
+      window.localStorage.setItem('dressup_v1', JSON.stringify(this.data));
+      return true;
+    } catch (e) {
+      // 容量满：先砍掉一半最老的作品再试
+      if (this.data.works.length > 10) {
+        this.data.works = this.data.works.slice(0, Math.floor(this.data.works.length / 2));
+        try {
+          window.localStorage.setItem('dressup_v1', JSON.stringify(this.data));
+          return true;
+        } catch (e2) { /* 放弃 */ }
+      }
+      this.available = false;
+      this.reason = '存储空间不足';
+      return false;
+    }
+  },
+
+  /** 跨天重置今日时长 */
+  rollDate() {
+    const t = new Date();
+    const key = t.getFullYear() + '-' + (t.getMonth() + 1) + '-' + t.getDate();
+    if (this.data.today.date !== key) {
+      this.data.today = { date: key, ms: 0 };
+      this.save();
+    }
+  },
+
+  addToday(ms) {
+    this.rollDate();
+    this.data.today.ms += ms;
+    this.save();
+  },
+
+  todayMinutes() { return this.data.today.ms / 60000; },
+
+  addWork(w) {
+    this.data.works.unshift(w);
+    if (this.data.works.length > 200) this.data.works.length = 200;
+    this.save();
+  },
+
+  addStar(n) {
+    this.data.stars += (n || 1);
+    this.save();
+  },
+
+  addLearned(c) {
+    if (this.data.learned.indexOf(c) < 0) {
+      this.data.learned.push(c);
+      this.save();
+      return true;   // 新学会
+    }
+    return false;
+  },
+
+  /* ---------- 作品集导出 / 导入兜底 ---------- */
+  exportJSON() {
+    return JSON.stringify({
+      app: 'dressup', v: 1, exportedAt: new Date().toISOString(),
+      stars: this.data.stars, level: this.data.level,
+      learned: this.data.learned, works: this.data.works,
+      doneTasks: this.data.doneTasks, settings: this.data.settings,
+      praise: this.data.praise,
+    });
+  },
+
+  importJSON(str) {
+    try {
+      const o = JSON.parse(str);
+      if (!o || o.app !== 'dressup') return { ok: false, msg: '不是本游戏的存档文件' };
+      this.data.stars = o.stars || 0;
+      this.data.level = o.level || 1;
+      this.data.learned = o.learned || [];
+      this.data.works = o.works || [];
+      this.data.doneTasks = o.doneTasks || [];
+      this.data.settings = Object.assign({}, DEFAULT_DATA.settings, o.settings || {});
+      this.data.praise = o.praise || '';
+      this.save();
+      return { ok: true, msg: '已恢复 ' + this.data.works.length + ' 件作品、' + this.data.learned.length + ' 个字' };
+    } catch (e) {
+      return { ok: false, msg: '文件读不出来：' + e.message };
+    }
+  },
+};
+
+
+/* ===== speech.js ===== */
+/**
+ * 语音（汉字发音）
+ *
+ * 依赖设备是否安装中文离线语音包：安卓部分机型默认没装 → 无声。
+ * 策略：启动时检测，有则朗读（语速放慢、音调略高，接近童声）；
+ * 没有则完全静默降级，汉字照常图文显示，绝不报错。
+ * 关键引导一律辅以视觉动画，不依赖声音。
+ */
+
+const Speech = {
+  ok: false,
+  voice: null,
+  enabled: true, // 家长中心可关
+
+  init() {
+    if (!('speechSynthesis' in window)) { this.ok = false; return false; }
+    const pick = () => {
+      let vs = [];
+      try { vs = window.speechSynthesis.getVoices() || []; } catch (e) { vs = []; }
+      if (!vs.length) return false;
+      // 优先本地（离线）中文语音，其次任意中文语音
+      const zh = vs.filter((v) => /^zh/i.test(v.lang || ''));
+      const local = zh.filter((v) => v.localService);
+      this.voice = local[0] || zh[0] || null;
+      this.ok = !!this.voice;
+      return this.ok;
+    };
+    if (pick()) return true;
+    // 部分浏览器首次 getVoices 为空，需等 voiceschanged
+    try {
+      window.speechSynthesis.onvoiceschanged = () => { pick(); };
+      // 兜底轮询
+      let n = 0;
+      const t = setInterval(() => {
+        if (pick() || ++n > 20) clearInterval(t);
+      }, 250);
+    } catch (e) { /* 忽略 */ }
+    return false;
+  },
+
+  speak(text) {
+    if (!this.ok || !this.enabled || !text) return;
+    try {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(String(text));
+      if (this.voice) u.voice = this.voice;
+      u.lang = (this.voice && this.voice.lang) || 'zh-CN';
+      u.rate = 0.8;   // 放慢，4 岁听得清
+      u.pitch = 1.25; // 略高，童声感
+      u.volume = 1;
+      window.speechSynthesis.speak(u);
+    } catch (e) { /* 静默失败，不影响游戏 */ }
+  },
+
+  stop() {
+    try { window.speechSynthesis.cancel(); } catch (e) { /* 忽略 */ }
+  },
+};
+
+
+/* ===== parent.js ===== */
+/**
+ * 家长中心与防沉迷
+ *
+ * 四道闸门：
+ *   1. 单次时长（默认 15 分钟）到点走"收尾仪式"，不是硬弹窗
+ *   2. 每日总量（家长可调 20/30/45/60 分钟）到时当日锁玩
+ *   3. 睡眠时段（默认 21:00-07:00）打开直显"睡觉时间"
+ *   4. 护眼休息：每 15 分钟提示看远处，可跳过
+ *
+ * 家长中心防误入：长按 3 秒 + 算术题（4 岁既长按不住，也不会算术）
+ */
+
+function _toMin(hhmm) {
+  const p = String(hhmm || '00:00').split(':');
+  return (parseInt(p[0], 10) || 0) * 60 + (parseInt(p[1], 10) || 0);
+}
+
+const Parent = {
+  sessionMs: 0,      // 本次连续游玩时长
+  eyeMs: 0,          // 距上次护眼提醒
+  last: 0,
+  paused: false,
+  onLimit: null,     // 触达限制时的回调
+  onEye: null,
+
+  reset() {
+    this.sessionMs = 0;
+    this.eyeMs = 0;
+    this.last = Date.now();
+    this.paused = false;
+  },
+
+  /** 每 500ms 调一次；返回 true 表示本次仍可继续玩 */
+  tick() {
+    const now = Date.now();
+    if (!this.last) this.last = now;
+    const dt = now - this.last;
+    this.last = now;
+    if (this.paused) return true;
+
+    this.sessionMs += dt;
+    this.eyeMs += dt;
+    Storage.addToday(dt);   // 只写入当日累计，会话时长不落盘
+
+    const s = Storage.data.settings;
+    const sessLimit = (s.sessionLimit || 15) * 60000;
+    const dayLimit = (s.dailyLimit || 30) * 60000;
+    const eyeLimit = 15 * 60000;
+
+    if (this.eyeMs >= eyeLimit) {
+      this.eyeMs = 0;
+      if (this.onEye) this.onEye();
+      return true;
+    }
+    if (this.sessionMs >= sessLimit) {
+      this.paused = true;
+      if (this.onLimit) this.onLimit('session');
+      return false;
+    }
+    if (Storage.data.today.ms >= dayLimit) {
+      this.paused = true;
+      if (this.onLimit) this.onLimit('daily');
+      return false;
+    }
+    return true;
+  },
+
+  pause() { this.paused = true; },
+  resume() { this.paused = false; this.last = Date.now(); },
+  /** 家长临时延长：重置单次计时 */
+  extend() { this.sessionMs = 0; this.paused = false; this.last = Date.now(); },
+
+  sessionLeftSec() {
+    const s = Storage.data.settings;
+    return Math.max(0, Math.round((s.sessionLimit * 60000 - this.sessionMs) / 1000));
+  },
+  todayLeftSec() {
+    const s = Storage.data.settings;
+    return Math.max(0, Math.round((s.dailyLimit * 60000 - Storage.data.today.ms) / 1000));
+  },
+
+  /** 是否在睡眠时段（支持跨天，如 21:00-07:00） */
+  inSleep() {
+    const s = Storage.data.settings;
+    const m = new Date().getHours() * 60 + new Date().getMinutes();
+    const a = _toMin(s.sleepStart), b = _toMin(s.sleepEnd);
+    if (a === b) return false;
+    return a > b ? (m >= a || m < b) : (m >= a && m < b);
+  },
+
+  /** 进入游戏前的闸门判定 */
+  canPlay() {
+    if (this.inSleep()) return { ok: false, reason: 'sleep' };
+    const s = Storage.data.settings;
+    if (Storage.data.today.ms >= s.dailyLimit * 60000) return { ok: false, reason: 'daily' };
+    return { ok: true };
+  },
+
+  /** 生成防误入算术题 */
+  makeQuiz() {
+    const a = 2 + Math.floor(Math.random() * 6);   // 2-7
+    const b = 1 + Math.floor(Math.random() * 5);   // 1-5
+    const ans = a + b;
+    const opts = [ans];
+    let guard = 0;
+    while (opts.length < 4 && guard++ < 60) {
+      const x = ans + Math.floor(Math.random() * 7) - 3;
+      if (x > 0 && opts.indexOf(x) < 0) opts.push(x);
+    }
+    while (opts.length < 4) opts.push(opts.length + 1);
+    // 洗牌
+    for (let i = opts.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const t = opts[i]; opts[i] = opts[j]; opts[j] = t;
+    }
+    return { q: a + ' + ' + b + ' = ?', ans: ans, opts: opts };
+  },
+};
+
+
+/* ===== game.js ===== */
+/**
+ * 主逻辑：状态机 / 渲染 / 交互
+ * 所有点击走事件委托（data-act + data-v），避免大量绑定
+ */
+
+const App = {
+  el: null,
+  state: 'home',          // home | char | tasks | play | quiz | works | books | parent | sleep | rest | eye
+  charId: 'bear',
+  sceneId: 'room',
+  outfit: { top: null, bottom: null, shoes: null, hat: null, acc: null },
+  colors: { top: '#FF6B6B', bottom: '#4DABF7', shoes: '#FFD43B', hat: '#FF8EC7', acc: '#69DB7C' },
+  curSlot: 'top',
+  task: null,
+  popWord: null,
+  count: 0,
+  chosen: [],
+  free: false,
+  toldStoreWarn: false,
+
+  /* ================= 启动 ================= */
+  init() {
+    this.el = document.getElementById('app');
+    Storage.init();
+    Speech.init();
+
+    Parent.onLimit = (why) => { this.state = 'rest'; this.restWhy = why; this.render(); };
+    Parent.onEye = () => { if (this.state === 'play' || this.state === 'quiz') { this.prevState = this.state; this.state = 'eye'; this.render(); } };
+
+    this.el.addEventListener('click', (e) => {
+      const t = e.target.closest('[data-act]');
+      if (t) this.handle(t.dataset.act, t.dataset.v, t);
+    });
+
+    // 家长中心入口：长按 3 秒
+    this.bindHold();
+
+    setInterval(() => {
+      if (this.state === 'play' || this.state === 'quiz') Parent.tick();
+    }, 500);
+
+    // 首次进入先过闸门
+    const g = Parent.canPlay();
+    this.state = g.ok ? 'home' : (g.reason === 'sleep' ? 'sleep' : 'rest');
+    this.restWhy = g.reason === 'sleep' ? '' : 'daily';
+    this.render();
+
+    if (!Storage.available && !this.toldStoreWarn) {
+      this.toldStoreWarn = true;
+      setTimeout(() => this.modal(
+        '存档可能保不住',
+        '本机浏览器不允许保存进度。请换用 <b>Chrome / 浏览器</b> 打开，并把文件放在固定文件夹里、每次从同一位置打开。',
+        [{ t: '知道了', a: 'closeModal', c: 'btn-primary' }]
+      ), 600);
+    }
+  },
+
+  bindHold() {
+    let timer = null, prog = null, start = 0;
+    const begin = (e) => {
+      if (this.state === 'parent') return;
+      start = Date.now();
+      prog = document.createElement('div');
+      prog.className = 'hold-prog';
+      document.body.appendChild(prog);
+      const step = () => {
+        const p = Math.min(1, (Date.now() - start) / 3000);
+        if (prog) prog.style.setProperty('--p', (p * 360) + 'deg');
+        if (p < 1) timer = requestAnimationFrame(step);
+        else { end(true); }
+      };
+      timer = requestAnimationFrame(step);
+      e.preventDefault();
+    };
+    const end = (done) => {
+      if (timer) cancelAnimationFrame(timer);
+      timer = null;
+      if (prog) { prog.remove(); prog = null; }
+      if (done) { Speech.stop(); this.state = 'parent'; this.render(); }
+    };
+    document.addEventListener('touchstart', (e) => {
+      if (e.target.closest && e.target.closest('.hold')) begin(e);
+    }, { passive: false });
+    document.addEventListener('touchend', () => end(false));
+    document.addEventListener('touchcancel', () => end(false));
+    document.addEventListener('mousedown', (e) => {
+      if (e.target.closest && e.target.closest('.hold')) begin(e);
+    });
+    document.addEventListener('mouseup', () => end(false));
+  },
+
+  /* ================= 工具 ================= */
+  icon(c, size) {
+    const b = ICONS[c];
+    if (!b) return '<div style="width:' + size + 'px;height:' + size + 'px"></div>';
+    return '<svg viewBox="0 0 48 48" width="' + size + '" height="' + size + '" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">' + b + '</svg>';
+  },
+
+  charSVG(charId, outfit, colors, sceneId, cls) {
+    const ch = CHARACTERS.filter((c) => c.id === charId)[0] || CHARACTERS[0];
+    const L = ch.layers;
+    const sc = SCENES.filter((s) => s.id === sceneId)[0] || SCENES[0];
+    let s = '<svg viewBox="' + CH_VIEWBOX + '"' + (cls ? ' class="' + cls + '"' : '') + ' xmlns="http://www.w3.org/2000/svg">';
+    s += '<rect width="200" height="260" fill="' + sc.bg + '"/>' + sc.decor;
+    s += L.ears + L.legs + L.body + L.arms;
+    if (outfit.top) s += this.clothSVG(outfit.top, colors.top);
+    s += L.head + L.face;
+    if (outfit.bottom) s += this.clothSVG(outfit.bottom, colors.bottom);
+    if (outfit.shoes) s += this.clothSVG(outfit.shoes, colors.shoes);
+    if (outfit.hat) s += this.clothSVG(outfit.hat, colors.hat);
+    if (outfit.acc) s += this.clothSVG(outfit.acc, colors.acc);
+    return s + '</svg>';
+  },
+
+  clothSVG(id, color) {
+    const d = CLOTH_MAP[id];
+    if (!d) return '';
+    return d.svg.replace(/\{c\}/g, color || '#FF6B6B');
+  },
+
+  /** 当前可见的字（只暴露当前级别，更高级别对 4 岁完全不可见） */
+  visibleWords() {
+    const lv = Storage.data.level;
+    return WORDS.filter((w) => w.lv <= lv);
+  },
+
+  unlockedChars() {
+    const st = Storage.data.stars;
+    return CHARACTERS.filter((c) => st >= c.unlockStars);
+  },
+  unlockedScenes() {
+    const st = Storage.data.stars;
+    return SCENES.filter((s) => st >= s.unlockStars);
+  },
+
+  bar(title, back) {
+    return '<div class="topbar"><button class="btn btn-sm btn-ghost" data-act="go" data-v="' + back + '">← 返回</button>'
+      + '<h1>' + title + '</h1>'
+      + '<div class="pill star">★ ' + Storage.data.stars + '</div></div>';
+  },
+
+  /* ================= 渲染 ================= */
+  render() {
+    const s = this.state;
+    let html = '';
+    if (s === 'home') html = this.viewHome();
+    else if (s === 'char') html = this.viewChar();
+    else if (s === 'tasks') html = this.viewTasks();
+    else if (s === 'play') html = this.viewPlay();
+    else if (s === 'quiz') html = this.viewQuiz();
+    else if (s === 'works') html = this.viewWorks();
+    else if (s === 'books') html = this.viewBooks();
+    else if (s === 'parent') html = this.viewParent();
+    else if (s === 'sleep') html = this.viewSleep();
+    else if (s === 'rest') html = this.viewRest();
+    else if (s === 'eye') html = this.viewEye();
+    this.el.innerHTML = html;
+  },
+
+  viewHome() {
+    const ch = CHARACTERS[0];
+    return '<div class="screen home">'
+      + this.charSVG(ch.id, {}, {}, 'garden', 'home-mascot')
+      + '<h1 class="home-title">小小服装设计师</h1>'
+      + '<p class="home-sub">给小动物穿得漂漂亮亮</p>'
+      + '<div class="home-btns">'
+      + '<button class="btn btn-primary" data-act="go" data-v="tasks">开始设计</button>'
+      + '<button class="btn btn-yellow" data-act="free">自由搭配</button>'
+      + '<button class="btn" data-act="go" data-v="works">我的作品</button>'
+      + '<button class="btn" data-act="go" data-v="books">我的字章</button>'
+      + '</div></div>'
+      + '<button class="hold" data-act="parent">⚙</button>';
+  },
+
+  viewChar() {
+    const st = Storage.data.stars;
+    let cards = '';
+    for (const c of CHARACTERS) {
+      const lock = st < c.unlockStars;
+      cards += '<div class="card' + (this.charId === c.id ? ' sel' : '') + (lock ? ' locked' : '') + '"'
+        + (lock ? '' : ' data-act="pickChar" data-v="' + c.id + '"') + '>'
+        + charAvatar(c)
+        + '<div class="card-name">' + c.name + '</div>'
+        + '<div class="card-sub">' + (lock ? '★' + c.unlockStars + ' 解锁' : c.py) + '</div></div>';
+    }
+    return this.bar('选一个小动物', 'home')
+      + '<div class="screen"><div class="pad"><div class="grid2">' + cards + '</div>'
+      + '<div style="height:12px"></div>'
+      + '<button class="btn btn-primary" style="width:100%" data-act="startTask">就它啦，开始</button>'
+      + '</div></div>';
+  },
+
+  viewTasks() {
+    const LINE = { life: '生活', number: '数数·逻辑', word: '汉字' };
+    let list = '';
+    for (const t of TASKS) {
+      const done = Storage.data.doneTasks.indexOf(t.id) >= 0;
+      list += '<div class="task' + (done ? ' done' : '') + '" data-act="startTask" data-v="' + t.id + '">'
+        + '<div class="task-no">' + (done ? '✓' : t.id) + '</div>'
+        + '<div class="task-body"><div class="task-title">' + t.title + '</div>'
+        + '<div class="task-hint">' + t.hint + '</div>'
+        + '<span class="task-tag">' + (LINE[t.line] || '') + ' · 字章「' + t.stamp + '」</span></div>'
+        + '<div style="font-size:22px">' + (done ? '⭐' : '›') + '</div></div>';
+    }
+    return this.bar('今天做什么', 'home')
+      + '<div class="task-list">' + list + '</div>';
+  },
+
+  /* ---------- 换装（wear 任务 + 自由模式） ---------- */
+  viewPlay() {
+    const t = this.task;
+    const isFree = this.free;
+    const prompt = isFree ? '想怎么穿就怎么穿' : t.title;
+    const hint = isFree ? '点下面的格子给小动物穿上，点颜色可以换颜色' : t.hint;
+
+    // 插槽
+    let slots = '';
+    for (const s of SLOTS) {
+      const on = this.curSlot === s.key;
+      const has = !!this.outfit[s.key];
+      slots += '<button class="slot' + (on ? ' on' : '') + '" data-act="slot" data-v="' + s.key + '">'
+        + '<span class="dot" style="background:' + (has ? this.colors[s.key] : 'transparent') + '"></span>'
+        + s.name + '</button>';
+    }
+
+    // 当前插槽的服饰
+    let items = '';
+    const list = CLOTHES[this.curSlot] || [];
+    items += '<div class="item-row">';
+    items += '<div class="item' + (!this.outfit[this.curSlot] ? ' on' : '') + '" data-act="wear" data-v="">'
+      + '<div class="item-ic">' + this.icon('布', 40) + '</div><div class="item-nm">不穿</div></div>';
+    for (const it of list) {
+      const cur = this.outfit[this.curSlot];
+      items += '<div class="item' + (cur === it.id ? ' on' : '') + '" data-act="wear" data-v="' + it.id + '">'
+        + '<div class="item-ic">' + this.icon(it.word, 40) + '</div>'
+        + '<div class="item-nm">' + it.name + '</div>'
+        + '<div class="item-w">' + it.word + '</div></div>';
+    }
+    items += '</div>';
+
+    let pal = '';
+    for (const c of COLORS) {
+      pal += '<button class="sw' + (this.colors[this.curSlot] === c.hex ? ' on' : '') + '" '
+        + 'style="background:' + c.hex + '" data-act="color" data-v="' + c.hex + '" data-w="' + c.word + '"></button>';
+    }
+
+    const ok = isFree || checkRequire(this.outfit, t.require);
+    const pop = this.popWord
+      ? '<div class="stage-word"><div class="sw-char">' + this.popWord + '</div><div class="sw-py">' + (WORD_MAP[this.popWord] ? WORD_MAP[this.popWord].p : '') + '</div></div>'
+      : '';
+
+    return this.bar(isFree ? '自由搭配' : '第 ' + t.id + ' 关', isFree ? 'home' : 'tasks')
+      + '<div class="screen">'
+      + '<div class="stage">' + this.charSVG(this.charId, this.outfit, this.colors, this.sceneId) + pop + '</div>'
+      + '<div class="tip">' + prompt + '<br><span style="font-weight:600;color:var(--ink2);font-size:13px">' + hint + '</span></div>'
+      + '<div class="tray"><div class="slots">' + slots + '</div>'
+      + '<div class="items">' + items + '</div>'
+      + '<div class="palette">' + pal + '</div>'
+      + '<div style="height:8px"></div>'
+      + '<button class="btn ' + (ok ? 'btn-ok' : '') + '" style="width:100%" data-act="finish" ' + (ok ? '' : 'disabled') + '>'
+      + (ok ? '完成啦 ✓' : '还没打扮好') + '</button>'
+      + '</div></div>';
+  },
+
+  /* ---------- 题面（count / choice / multi / compose） ---------- */
+  viewQuiz() {
+    const t = this.task;
+    let body = '';
+
+    if (t.type === 'count') {
+      let row = '';
+      for (let i = 0; i < this.count; i++) row += this.icon(t.icon || '星', 44);
+      body = '<div class="q-prompt">' + t.title + '</div>'
+        + '<div class="count-n">' + this.count + ' / ' + t.target + ' ' + (t.unit || '') + '</div>'
+        + '<div class="count-row">' + row + '</div>'
+        + '<button class="tap-big" data-act="tap">' + this.icon(t.icon || '星', 56) + '</button>'
+        + '<div style="height:10px"></div>'
+        + '<button class="btn btn-ghost btn-sm" style="width:100%" data-act="resetCount">重新数</button>';
+
+    } else if (t.type === 'choice') {
+      if (t.bigWord) body += '<div class="q-big">' + t.bigWord + '</div>';
+      if (t.sample) {
+        body += '<div class="q-prompt">上面这个是：</div><div style="text-align:center;margin:6px 0">'
+          + this.icon(t.sample.w, 62) + '</div>';
+      }
+      if (t.sequence) {
+        let sq = '<div class="q-seq">';
+        for (const c of t.sequence) sq += '<div class="seq-d" style="background:' + c + '"></div>';
+        sq += '<div class="seq-q">?</div></div>';
+        body += sq;
+      }
+      body += '<div class="q-prompt">' + t.title + '</div>';
+      body += '<div class="q-opts">';
+      t.options.forEach((o, i) => {
+        body += '<div class="q-opt" data-act="pick" data-v="' + i + '">'
+          + (o.c
+            ? '<div class="seq-d" style="background:' + o.c + ';width:56px;height:56px"></div>'
+            : '<div class="q-ic">' + this.icon(o.w, 56) + '</div>')
+          + '<div class="q-lb">' + (o.w || '') + '</div></div>';
+      });
+      body += '</div>';
+
+    } else if (t.type === 'multi') {
+      body = '<div class="q-prompt">' + t.title + '</div>'
+        + '<div class="q-opts">';
+      t.options.forEach((o, i) => {
+        const on = this.chosen.indexOf(i) >= 0;
+        body += '<div class="q-opt' + (on ? ' on' : '') + '" data-act="toggle" data-v="' + i + '">'
+          + '<div class="q-ic" style="color:' + (t.colors ? t.colors[i] : 'var(--ink)') + '">' + this.icon(o.w, 56) + '</div>'
+          + '<div class="q-lb">' + o.w + '</div></div>';
+      });
+      body += '</div>'
+        + '<button class="btn btn-ok" style="width:100%" data-act="checkMulti">放进去</button>';
+
+    } else if (t.type === 'compose') {
+      let sent = '<div class="sent">';
+      for (const c of t.sentence) {
+        if (c === null) {
+          const pick = this.chosen.length ? t.blankOptions[this.chosen[0]].w : '？';
+          sent += '<div class="sent-c blank">' + pick + '</div>';
+        } else {
+          sent += '<div class="sent-c">' + c + '</div>';
+        }
+      }
+      sent += '</div>';
+      let blank = '<div class="q-opts">';
+      t.blankOptions.forEach((o, i) => {
+        blank += '<div class="q-opt' + (this.chosen[0] === i ? ' on' : '') + '" data-act="pick" data-v="' + i + '">'
+          + '<div class="seq-d" style="background:' + o.c + ';width:56px;height:56px"></div>'
+          + '<div class="q-lb">' + o.w + '</div></div>';
+      });
+      blank += '</div>';
+      body = '<div class="q-prompt">' + t.title + '</div>' + sent
+        + '<div style="height:8px"></div>' + blank
+        + '<button class="btn btn-ok" style="width:100%" data-act="checkCompose">读一读</button>';
+    }
+
+    return this.bar('第 ' + t.id + ' 关', 'tasks')
+      + '<div class="screen">'
+      + '<div class="stage">' + this.charSVG(this.charId, this.outfit, this.colors, t.scene || 'room') + '</div>'
+      + '<div class="quiz">' + body + '</div></div>';
+  },
+
+  /* ---------- 作品集 ---------- */
+  viewWorks() {
+    const ws = Storage.data.works;
+    if (!ws.length) {
+      return this.bar('我的作品', 'home')
+        + '<div class="empty">还没有作品哦<br>去「开始设计」给小动物穿一身漂亮衣服吧</div>';
+    }
+    let g = '<div class="works-grid">';
+    for (const w of ws) {
+      g += '<div class="work">' + this.charSVG(w.char, w.outfit, w.colors, w.scene)
+        + '<div class="work-ft">字章「' + w.stamp + '」</div></div>';
+    }
+    g += '</div>';
+    return this.bar('我的作品（' + ws.length + '）', 'home') + '<div class="works">' + g + '</div>';
+  },
+
+  /* ---------- 集章册 ---------- */
+  viewBooks() {
+    const cur = Storage.data.level;
+    const learned = Storage.data.learned;
+    let h = '';
+
+    // 只显示当前级别及以前，更高级别完全不可见（不制造"还剩几百字"的压力）
+    for (let lv = 1; lv <= 10; lv++) {
+      if (lv > cur) break;
+      const ws = WORDS.filter((w) => w.lv === lv);
+      const got = ws.filter((w) => learned.indexOf(w.c) >= 0).length;
+      h += '<div class="book-lv"><div class="book-hd"><span>第 ' + lv + ' 级</span><span style="color:var(--ink2)">' + got + ' / ' + ws.length + '</span></div><div class="book-grid">';
+      for (const w of ws) {
+        const has = learned.indexOf(w.c) >= 0;
+        h += '<div class="chip' + (has ? ' got' : ' locked') + '" data-act="say" data-v="' + w.c + '">'
+          + (has ? w.c + '<small>' + w.p + '</small>' : '<span style="font-size:19px">?</span>') + '</div>';
+      }
+      h += '</div></div>';
+    }
+
+    // 额外收获：做任务时提前遇到的更高级别的字（如雪地关的「冬」在第 3 级）
+    const extra = learned.map((c) => WORD_MAP[c]).filter((w) => w && w.lv > cur);
+    if (extra.length) {
+      h += '<div class="book-lv"><div class="book-hd"><span>额外收获</span><span style="color:var(--ink2)">' + extra.length + ' 个</span></div><div class="book-grid">';
+      for (const w of extra) {
+        h += '<div class="chip got" data-act="say" data-v="' + w.c + '">' + w.c + '<small>' + w.p + '</small></div>';
+      }
+      h += '</div></div>';
+    }
+
+    if (cur < 10) h += '<div class="empty">后面还有更多字<br>把这一级学完就会自动打开</div>';
+    return this.bar('我的字章', 'home') + '<div class="books">' + h + '</div>';
+  },
+
+  /* ---------- 睡眠 / 休息 / 护眼 ---------- */
+  viewSleep() {
+    const s = Storage.data.settings;
+    return '<div class="screen sleep"><div class="sleep-emo">🌙</div>'
+      + '<h1 class="home-title">小动物们睡着啦</h1>'
+      + '<p class="home-sub">睡觉时间（' + s.sleepStart + ' - ' + s.sleepEnd + '）<br>明天早上再来找它们玩吧</p>'
+      + '<button class="btn btn-ghost btn-sm" data-act="go" data-v="parent">家长设置</button></div>';
+  },
+
+  viewRest() {
+    const why = this.restWhy;
+    const txt = why === 'daily'
+      ? '今天玩的时间到啦，明天再来哦'
+      : '玩了好一会儿啦，让眼睛休息一下吧';
+    return '<div class="screen sleep">'
+      + '<div class="sleep-emo">😴</div>'
+      + '<h1 class="home-title">' + txt + '</h1>'
+      + '<p class="home-sub">小动物要去睡午觉了<br>你可以先看看自己的作品</p>'
+      + '<div style="width:100%;max-width:320px;display:flex;flex-direction:column;gap:12px">'
+      + '<button class="btn btn-yellow" data-act="go" data-v="works">看看我的作品</button>'
+      + '<button class="btn btn-ghost" data-act="go" data-v="parent">家长：再玩一会儿</button>'
+      + '</div></div>';
+  },
+
+  viewEye() {
+    return '<div class="screen sleep"><div class="sleep-emo">👀</div>'
+      + '<h1 class="home-title">看看远处</h1>'
+      + '<p class="home-sub">和小动物一起眨眨眼<br>看看窗外的树，数三下</p>'
+      + '<button class="btn btn-primary" data-act="eyeDone">好啦，继续玩</button></div>';
+  },
+
+  /* ---------- 家长中心 ---------- */
+  viewParent() {
+    const s = Storage.data.settings;
+    const dayLv = [20, 30, 45, 60];
+    const sesLv = [10, 15, 20, 30];
+    const todayMin = Math.round(Storage.data.today.ms / 60000);
+
+    let h = this.bar('家长中心', 'home')
+      + '<div class="pc">';
+
+    if (!Speech.ok) {
+      h += '<div class="warn">⚠️ 这台设备没有中文语音包，汉字不会发音。<br>可在「设置 → 语言和输入法 → 文字转语音」里安装中文语音，或装一个中文 TTS 引擎。</div>';
+    }
+    if (!Storage.available) {
+      h += '<div class="warn">⚠️ 当前浏览器不允许保存进度（' + Storage.reason + '）。<br>建议用 <b>Chrome</b> 打开，并把本文件放在<b>固定文件夹</b>、每次从同一位置打开，否则星星和作品会丢失。</div>';
+    }
+
+    h += '<div class="row"><div><div class="row-l">今日已玩</div><div class="row-s">' + todayMin + ' 分钟 / 上限 ' + s.dailyLimit + ' 分钟</div></div>'
+      + '<div class="seg"><button data-act="extend">再玩 15 分钟</button></div></div>';
+
+    h += '<div class="row"><div><div class="row-l">每天总共能玩</div><div class="row-s">到时间后当天不能再玩</div></div>'
+      + '<div class="seg">';
+    for (const v of dayLv) h += '<button class="' + (s.dailyLimit === v ? 'on' : '') + '" data-act="setDaily" data-v="' + v + '">' + v + '分</button>';
+    h += '</div></div>';
+
+    h += '<div class="row"><div><div class="row-l">一次能玩多久</div><div class="row-s">到点会播放收尾动画</div></div>'
+      + '<div class="seg">';
+    for (const v of sesLv) h += '<button class="' + (s.sessionLimit === v ? 'on' : '') + '" data-act="setSession" data-v="' + v + '">' + v + '分</button>';
+    h += '</div></div>';
+
+    h += '<div class="row"><div><div class="row-l">睡觉时间</div><div class="row-s">' + s.sleepStart + ' - ' + s.sleepEnd + ' 直接锁住</div></div>'
+      + '<div class="seg">'
+      + '<button data-act="setSleep" data-v="20:30-07:30">早睡</button>'
+      + '<button data-act="setSleep" data-v="21:00-07:00">默认</button>'
+      + '<button data-act="setSleep" data-v="21:30-07:00">晚睡</button>'
+      + '</div></div>';
+
+    h += '<div class="row"><div><div class="row-l">字表级别</div><div class="row-s">当前第 ' + Storage.data.level + ' 级，共 10 级</div></div>'
+      + '<div class="seg">'
+      + '<button data-act="setLevel" data-v="-1">−</button>'
+      + '<button data-act="setLevel" data-v="0">' + Storage.data.level + '</button>'
+      + '<button data-act="setLevel" data-v="1">＋</button>'
+      + '</div></div>';
+
+    h += '<div class="row"><div><div class="row-l">汉字发音</div><div class="row-s">' + (Speech.ok ? '可用' : '不可用') + '</div></div>'
+      + '<div class="seg"><button class="' + (Speech.enabled ? 'on' : '') + '" data-act="toggleSpeech">' + (Speech.enabled ? '开' : '关') + '</button></div></div>';
+
+    h += '<div class="row"><div><div class="row-l">给宝贝的一句话</div><div class="row-s">' + (Storage.data.praise ? '已设置' : '完成后会弹出来') + '</div></div>'
+      + '<div class="seg"><button data-act="setPraise">' + (Storage.data.praise ? '改一句' : '录一句') + '</button></div></div>';
+
+    h += '<div class="row"><div><div class="row-l">导出存档</div><div class="row-s">存成文件，换手机时可恢复</div></div>'
+      + '<div class="seg"><button data-act="export">导出</button><button data-act="import">导入</button></div></div>';
+
+    h += '<div class="row"><div><div class="row-l">进度</div><div class="row-s">★ ' + Storage.data.stars + ' · 字章 ' + Storage.data.learned.length + ' · 作品 ' + Storage.data.works.length + ' 件</div></div>'
+      + '<div class="seg"><button data-act="reset">清空</button></div></div>';
+
+    h += '<div style="height:8px"></div>'
+      + '<button class="btn btn-primary" style="width:100%" data-act="go" data-v="home">回到游戏</button>'
+      + '<div style="height:20px"></div></div>';
+    return h;
+  },
+
+  /* ================= 交互 ================= */
+  handle(act, v, t) {
+    switch (act) {
+      case 'go':
+        if (v === 'home') { this.task = null; this.free = false; }
+        if (v === 'play' || v === 'quiz') { /* 由各自入口设置 */ }
+        this.state = v;
+        this.render();
+        break;
+
+      case 'parent':
+        this.state = 'parent'; this.render(); break;
+
+      case 'free':
+        this.free = true; this.task = null;
+        this.outfit = { top: null, bottom: null, shoes: null, hat: null, acc: null };
+        this.curSlot = 'top';
+        const g1 = Parent.canPlay();
+        if (!g1.ok) { this.state = g1.reason === 'sleep' ? 'sleep' : 'rest'; this.restWhy = g1.reason === 'sleep' ? '' : 'daily'; }
+        else { this.state = 'char'; }
+        this.render();
+        break;
+
+      case 'pickChar':
+        this.charId = v; this.render(); break;
+
+      case 'startTask': {
+        const g = Parent.canPlay();
+        if (!g.ok) { this.state = g.reason === 'sleep' ? 'sleep' : 'rest'; this.restWhy = g.reason === 'sleep' ? '' : 'daily'; this.render(); return; }
+        if (v) {
+          const tk = TASKS.filter((x) => String(x.id) === String(v))[0];
+          if (!tk) return;
+          // 汉字关每天限 3 次
+          if (tk.line === 'word' && (Storage.data.today.wc || 0) >= 3) {
+            this.modal('今天认字够啦', '汉字关一天最多玩 3 次，明天再来吧～', [{ t: '好', a: 'closeModal', c: 'btn-primary' }]);
+            return;
+          }
+          this.task = tk; this.free = false;
+          this.charId = tk.char; this.sceneId = tk.scene || 'room';
+          this.count = 0; this.chosen = [];
+          this.outfit = { top: null, bottom: null, shoes: null, hat: null, acc: null };
+          this.state = tk.type === 'wear' ? 'play' : 'quiz';
+          Parent.reset();
+          Speech.speak(tk.title + '。' + tk.hint);
+        } else {
+          this.state = 'play';
+        }
+        this.render();
+        break;
+      }
+
+      case 'slot':
+        this.curSlot = v; this.render(); break;
+
+      case 'wear': {
+        this.outfit[this.curSlot] = v || null;
+        if (v) {
+          const d = CLOTH_MAP[v];
+          this.popWord = d.word;
+          Speech.speak(d.name);
+        } else this.popWord = null;
+        this.render();
+        break;
+      }
+
+      case 'color':
+        this.colors[this.curSlot] = v;
+        this.popWord = t.dataset.w || null;
+        if (this.popWord) Speech.speak(this.popWord);
+        this.render();
+        break;
+
+      case 'say':
+        this.popWord = v;
+        Speech.speak(v);
+        this.modal(v, WORD_MAP[v] ? WORD_MAP[v].p + ' · ' + WORD_MAP[v].e : '',
+          [{ t: '再听一次', a: 'sayAgain', v: v, c: 'btn-yellow' }, { t: '好', a: 'closeModal', c: 'btn-primary' }]);
+        break;
+
+      case 'sayAgain': Speech.speak(v); break;
+
+      case 'tap':
+        this.count++;
+        Speech.speak(String(this.count));
+        if (this.count >= this.task.target) this.win();
+        else this.render();
+        break;
+
+      case 'resetCount': this.count = 0; this.render(); break;
+
+      case 'pick': {
+        const i = parseInt(v, 10);
+        const t2 = this.task;
+        if (t2.type === 'compose') { this.chosen = [i]; this.render(); return; }
+        if (i === t2.answer) { this.win(); }
+        else {
+          this.chosen = [];
+          t.classList.add('bad');
+          setTimeout(() => { t.classList.remove('bad'); }, 420);
+          if (window.navigator.vibrate) { try { window.navigator.vibrate(30); } catch (e) { /* 忽略 */ } }
+        }
+        break;
+      }
+
+      case 'toggle': {
+        const i = parseInt(v, 10);
+        const at = this.chosen.indexOf(i);
+        if (at >= 0) this.chosen.splice(at, 1); else this.chosen.push(i);
+        this.render();
+        break;
+      }
+
+      case 'checkMulti': {
+        const t3 = this.task;
+        const a = (t3.answers || []).slice().sort().join(',');
+        const b = this.chosen.slice().sort().join(',');
+        if (a === b) this.win();
+        else this.modal('再看看', '还有红色的没放进去哦', [{ t: '好', a: 'closeModal', c: 'btn-primary' }]);
+        break;
+      }
+
+      case 'checkCompose':
+        if (this.chosen.length && this.chosen[0] === this.task.answer) this.win();
+        else this.modal('再想想', '太阳是什么颜色的呀', [{ t: '好', a: 'closeModal', c: 'btn-primary' }]);
+        break;
+
+      case 'finish': {
+        if (this.free) { this.win(); break; }
+        if (checkRequire(this.outfit, this.task.require)) this.win();
+        break;
+      }
+
+      case 'eyeDone':
+        this.state = this.prevState || 'play'; this.render(); break;
+
+      case 'extend':
+        Parent.extend();
+        this.state = 'home'; this.render();
+        this.modal('已延长', '可以继续玩 15 分钟', [{ t: '好', a: 'closeModal', c: 'btn-primary' }]);
+        break;
+
+      case 'setDaily': Storage.data.settings.dailyLimit = parseInt(v, 10); Storage.save(); this.render(); break;
+      case 'setSession': Storage.data.settings.sessionLimit = parseInt(v, 10); Storage.save(); this.render(); break;
+      case 'setSleep': {
+        const p = String(v).split('-');
+        Storage.data.settings.sleepStart = p[0];
+        Storage.data.settings.sleepEnd = p[1];
+        Storage.save(); this.render(); break;
+      }
+      case 'setLevel': {
+        const d = parseInt(v, 10);
+        const n = Math.min(10, Math.max(1, Storage.data.level + d));
+        Storage.data.level = n; Storage.save(); this.render(); break;
+      }
+      case 'toggleSpeech': Speech.enabled = !Speech.enabled; this.render(); break;
+
+      case 'setPraise': {
+        const cur = Storage.data.praise || '';
+        const val = window.prompt('写一句想对宝贝说的话（完成后会弹出来）', cur);
+        if (val !== null) { Storage.data.praise = val.slice(0, 40); Storage.save(); this.render(); }
+        break;
+      }
+
+      case 'export': {
+        const blob = new Blob([Storage.exportJSON()], { type: 'application/json' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = '小小服装设计师-存档-' + new Date().toISOString().slice(0, 10) + '.json';
+        document.body.appendChild(a); a.click();
+        setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+        break;
+      }
+
+      case 'import': {
+        const inp = document.createElement('input');
+        inp.type = 'file'; inp.accept = '.json,application/json';
+        inp.onchange = () => {
+          const f = inp.files && inp.files[0];
+          if (!f) return;
+          const r = new FileReader();
+          r.onload = () => {
+            const res = Storage.importJSON(String(r.result));
+            this.modal(res.ok ? '恢复成功' : '没能恢复', res.msg, [{ t: '好', a: 'closeModal', c: 'btn-primary' }]);
+            this.render();
+          };
+          r.readAsText(f);
+        };
+        inp.click();
+        break;
+      }
+
+      case 'reset':
+        if (window.confirm('确定清空所有星星、字章和作品吗？此操作不可恢复。')) {
+          Storage.data.stars = 0; Storage.data.learned = [];
+          Storage.data.works = []; Storage.data.doneTasks = [];
+          Storage.data.level = 1; Storage.save(); this.render();
+        }
+        break;
+
+      case 'closeModal':
+        const m = document.querySelector('.overlay');
+        if (m) m.remove();
+        break;
+    }
+  },
+
+  /* ================= 完成一关 ================= */
+  win() {
+    const t = this.task;
+    const stamp = this.free ? (this.outfit.top ? CLOTH_MAP[this.outfit.top].word : '衣') : t.stamp;
+    const first = Storage.data.doneTasks.indexOf(t ? t.id : 0) < 0;
+
+    if (t) {
+      if (first) {
+        Storage.data.doneTasks.push(t.id);
+        Storage.addStar(1);
+        if (t.line === 'word') Storage.data.today.wc = (Storage.data.today.wc || 0) + 1;
+      }
+      // 学满当前级别的字数 → 自动升到下一级
+      const lvWords = WORDS.filter((w) => w.lv === Storage.data.level);
+      const gotLv = lvWords.filter((w) => Storage.data.learned.indexOf(w.c) >= 0).length;
+      if (gotLv >= lvWords.length - 1 && Storage.data.level < 10) {
+        Storage.data.level++;
+      }
+    }
+    const isNew = Storage.addLearned(stamp);
+
+    // 存作品（wear 类与自由模式）
+    if (!t || t.type === 'wear') {
+      Storage.addWork({
+        char: this.charId, scene: this.sceneId,
+        outfit: JSON.parse(JSON.stringify(this.outfit)),
+        colors: JSON.parse(JSON.stringify(this.colors)),
+        stamp: stamp, at: Date.now(),
+      });
+    }
+    Storage.save();
+
+    const w = WORD_MAP[stamp] || { p: '', e: '' };
+    Speech.speak(stamp);
+
+    let extra = '';
+    if (Storage.data.praise) extra = '<div class="praise">💛 ' + Storage.data.praise + '</div>';
+
+    this.modal(
+      first ? '太棒啦！' : '又完成一次',
+      (isNew ? '你得到了一个新的字章' : '这个字章你已经有了') + '，★ +1',
+      [
+        { t: '看看作品', a: 'go', v: 'works', c: 'btn-ghost btn-sm' },
+        { t: '再玩一个', a: 'go', v: 'tasks', c: 'btn-primary btn-sm' },
+      ],
+      '<div class="stamp"><div class="stamp-c">' + stamp + '</div><div class="stamp-p">' + w.p + '</div></div>' + extra
+    );
+  },
+
+  modal(title, desc, btns, extraHTML) {
+    const old = document.querySelector('.overlay');
+    if (old) old.remove();
+    let b = '';
+    for (const x of btns || []) {
+      b += '<button class="btn ' + (x.c || '') + '" data-act="' + x.a + '"' + (x.v ? ' data-v="' + x.v + '"' : '') + '>' + x.t + '</button>';
+    }
+    const d = document.createElement('div');
+    d.className = 'overlay';
+    d.innerHTML = '<div class="modal">' + (extraHTML || '')
+      + '<h2>' + title + '</h2><p>' + desc + '</p>'
+      + '<div style="display:flex;flex-direction:column;gap:10px">' + b + '</div></div>';
+    document.body.appendChild(d);
+  },
+};
+
+/* 暴露到 window：方便在手机浏览器里调试，也方便自动化测试 */
+window.App = App;
+window.Storage = Storage;
+window.Parent = Parent;
+window.Speech = Speech;
+window.WORDS = WORDS;
+window.ICONS = ICONS;
+window.CHARACTERS = CHARACTERS;
+window.CLOTH_MAP = CLOTH_MAP;
+window.TASKS = TASKS;
+
+window.addEventListener('DOMContentLoaded', () => App.init());
+if (document.readyState !== 'loading') { if (!App.el) App.init(); }
+
+
+/* ===== sw-register.js ===== */
+/**
+ * Service Worker 注册：让游戏能离线运行、可被"添加到主屏幕"
+ * 仅在 HTTPS 或 localhost 环境下生效（file:// 协议不支持 SW）
+ */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js')
+      .then((reg) => {
+        console.log('SW 已注册：', reg.scope);
+      })
+      .catch((err) => {
+        console.log('SW 注册失败（离线仍可运行 index.html 本身）：', err);
+      });
+  });
+}
+
+</script>
+</body>
+</html>
